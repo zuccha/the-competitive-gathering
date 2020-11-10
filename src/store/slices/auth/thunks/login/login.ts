@@ -5,7 +5,7 @@ import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectAuthStatus from '../../selectors/selectAuthStatus'
 
 const login = createAsyncThunk<
-  string,
+  { username: string, token: string },
   { username: string, password: string },
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
@@ -15,7 +15,7 @@ const login = createAsyncThunk<
     await wait(500)
     if (username === '401') { throw new ErrorHttp('401') }
     if (username === '500') { throw new ErrorHttp('500') }
-    return 'token'
+    return { username, token: 'token' }
   },
   {
     condition: (args, { getState }) => {

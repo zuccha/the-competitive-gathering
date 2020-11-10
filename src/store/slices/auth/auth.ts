@@ -5,6 +5,7 @@ import logout from './thunks/logout'
 
 export type IAuthState = IRequest<{
   token: string | undefined
+  username: string | undefined
 }>
 
 const initialState: IAuthState = Request.makeInitial()
@@ -19,7 +20,7 @@ const auth = createSlice({
       return Request.makeLoading()
     })
     builder.addCase(login.fulfilled, (state, action) => {
-      return Request.makeSuccess({ token: action.payload })
+      return Request.makeSuccess(action.payload)
     })
     builder.addCase(login.rejected, () => {
       return Request.makeFailure()
@@ -30,7 +31,7 @@ const auth = createSlice({
       return Request.makeLoading()
     })
     builder.addCase(logout.fulfilled, () => {
-      return Request.makeSuccess({ token: undefined })
+      return Request.makeSuccess({ username: undefined, token: undefined })
     })
     builder.addCase(logout.rejected, () => {
       return Request.makeFailure()

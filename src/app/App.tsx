@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter, Link, Switch } from 'react-router-dom'
+import { BrowserRouter, Switch } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import RoutePrivate from './components/RoutePrivate'
 import RoutePublic from './components/RoutePublic'
 import Login from './views/Login'
@@ -7,10 +8,7 @@ import Login from './views/Login'
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div>
-        <Link to='/'>Home</Link>
-        <Link to='/login'>Login</Link>
-      </div>
+      <Navbar />
       <Switch>
         <RoutePublic path='/login'>
           <Login />
