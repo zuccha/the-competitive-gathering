@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { IStanding } from '../../../../../types/Standing'
 import wait from '../../../../../utils/wait'
 import { IStoreDispatch, IStoreState } from '../../../../store'
-import selectLeaguesStandings from '../../selectors/selectLeaguesStandings'
+import selectGetLeagueStandings from '../../selectors/selectGetLeagueStandings'
 import ErrorHttp from '../../../../../types/ErrorHttp'
 
 const makeStanding = (
@@ -50,8 +50,8 @@ const fetchStandingsByLeague = createAsyncThunk<
   },
   {
     condition: (id, { getState }) => {
-      const leaguesStandings = selectLeaguesStandings(getState())
-      return leaguesStandings[id]?.status !== 'loading'
+      const leagueStandings = selectGetLeagueStandings(getState())(id)
+      return leagueStandings.status !== 'loading'
     },
   },
 )

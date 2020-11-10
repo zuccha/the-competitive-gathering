@@ -2,17 +2,18 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { IStoreDispatch, IStoreState } from '../../../store'
 import { IRequestStatus } from '../../../types/RequestStatus'
-import { AsyncThunk } from '@reduxjs/toolkit'
+import { AsyncThunkAction } from '@reduxjs/toolkit'
 
-const usePrefetch = <R>(
+const usePrefetch = (
   resourceStatus: IRequestStatus,
-  fetchResource: AsyncThunk<R, void, { dispatch: IStoreDispatch, state: IStoreState }>,
+  fetchResource: () => AsyncThunkAction<unknown, unknown, { dispatch: IStoreDispatch, state: IStoreState }>,
 ): void => {
   const dispatch: IStoreDispatch = useDispatch()
 
   useEffect(() => {
     if (resourceStatus === 'initial') {
       dispatch(fetchResource())
+        .catch(() => { /* ignore error */ })
     }
   }, [dispatch, resourceStatus, fetchResource])
 }
