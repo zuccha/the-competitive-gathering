@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useHistory } from 'react-router-dom'
 import { ILeague } from '../../../types/League'
 import SortableTable, { IHeader } from '../SortableTable'
 
@@ -14,9 +15,14 @@ const headers: IHeader<ILeague>[] = [
 ]
 
 const LeaguesTable: React.FC<ILeaguesTableProps> = ({ leagues }) => {
+  const history = useHistory()
+
   const items = useMemo(() => {
-    return leagues.map(league => ({ data: league }))
-  }, [leagues])
+    return leagues.map(league => ({
+      data: league,
+      onClick: () => history.push(`/leagues/${league.id}`),
+    }))
+  }, [history, leagues])
 
   return (
     <SortableTable
