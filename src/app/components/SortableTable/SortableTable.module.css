@@ -1,24 +1,24 @@
-.standings-table {
+.sortable-table {
   border-spacing: 0;
   border-collapse: collapse;
 }
 
-.standings-table th {
+.sortable-table th {
   background-color: #eaecf0;
   border: 1px solid #a2a9b1;
 }
 
-.standings-table td {
+.sortable-table td {
   background-color: #f8f9fa;
   border: 1px solid #a2a9b1;
   padding: 0.2rem 0.4rem;
 }
 
-.standings-table-cell-text {
+.sortable-table-cell-text {
   width: 128px;
 }
 
-.standings-table-cell-number {
+.sortable-table-cell-number {
   text-align: right;
   width: 64px;
 }

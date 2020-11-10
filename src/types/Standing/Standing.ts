@@ -1,4 +1,4 @@
-export interface IStanding {
+export type IStanding = {
   username: string
   points: number
   matchesPlayed: number
