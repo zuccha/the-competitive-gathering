@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
-import { ILeague } from '../../../types/League'
-import SortableTable, { IHeader } from '../SortableTable'
+import { ILeague } from '../../../../../types/League'
+import SortableTable, { IHeader } from '../../../../components/SortableTable'
 
 type ILeaguesTableProps = {
   leagues: ILeague[]

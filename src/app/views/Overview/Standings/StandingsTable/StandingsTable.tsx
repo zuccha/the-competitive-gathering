@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { IStanding } from '../../../types/Standing'
-import SortableTable, { IHeader } from '../SortableTable'
+import { IStanding } from '../../../../../types/Standing'
+import SortableTable, { IHeader } from '../../../../components/SortableTable'
 
 type IStandingsTableProps = {
   standings: IStanding[]
