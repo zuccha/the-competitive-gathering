@@ -8,6 +8,7 @@ type IStandingsTableProps = {
 
 const headers: IHeader<IStanding>[] = [
   { property: 'username', label: 'Player' },
+  { property: 'points', label: 'Pts' },
   { property: 'matchesPlayed', label: 'MP' },
   { property: 'matchesWon', label: 'MW' },
   { property: 'matchesLost', label: 'ML' },
