@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import { login } from '../../../store/slices/auth'
+import FormInput from '../../components/FormInput'
 import styles from './Login.module.css'
 
 const loginValidationSchema = Yup.object().shape({
@@ -28,18 +29,17 @@ const Login: React.FC = () => {
     >
       {({ isValid, dirty }) => (
         <Form className={styles['login-form']}>
-          <div className={styles['login-field-container']}>
-            <Field name='username' placeholder='Username' />
-            <div className={styles['login-error-message']}>
-              <ErrorMessage name='username' />
-            </div>
-          </div>
-          <div className={styles['login-field-container']}>
-            <Field name='password' placeholder='Password' type='password' />
-            <div className={styles['login-error-message']}>
-              <ErrorMessage name='password' />
-            </div>
-          </div>
+          <FormInput
+            className={styles['login-form-input']}
+            name='username'
+            placeholder='Username'
+          />
+          <FormInput
+            className={styles['login-form-input']}
+            name='password'
+            placeholder='Password'
+            type='password'
+          />
           <button type="submit" disabled={!isValid || !dirty}>
             Login
           </button>

@@ -1,0 +1,9 @@
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input-error-message {
+  font-size: smaller;
+  color: red;
+}

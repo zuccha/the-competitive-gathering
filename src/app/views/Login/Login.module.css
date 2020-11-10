@@ -7,13 +7,6 @@
   align-items: center;
 }
 
-.login-field-container {
-  display: flex;
-  flex-direction: column;
+.login-form-input {
   margin-bottom: 1rem;
-}
-
-.login-error-message {
-  font-size: smaller;
-  color: red;
 }
