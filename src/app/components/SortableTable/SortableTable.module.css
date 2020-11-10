@@ -4,14 +4,26 @@
 }
 
 .sortable-table th {
-  background-color: #eaecf0;
   border: 1px solid #a2a9b1;
 }
 
 .sortable-table td {
-  background-color: #f8f9fa;
   border: 1px solid #a2a9b1;
   padding: 0.2rem 0.4rem;
+}
+
+.sortable-table thead tr {
+  cursor: pointer;
+  background-color: #eaecf0;
+}
+
+.sortable-table tbody tr {
+  background-color: #f8f9fa;
+}
+
+.sortable-table tbody tr.sortable-table-clickable:hover {
+  cursor: pointer;
+  background-color: #fffcd5;
 }
 
 .sortable-table-cell-text {

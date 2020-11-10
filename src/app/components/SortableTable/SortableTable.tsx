@@ -15,6 +15,7 @@ export type IHeader<T extends Record<string, IValue>> = {
 
 export type IItem<T extends Record<string, IValue>> = {
   data: T
+  onClick?: () => void
 }
 
 type ISortableTableProps<T extends Record<string, IValue>> = {
@@ -68,7 +69,15 @@ const SortableTable = <T extends Record<string, IValue>,>({
       [typeof value === 'number', () => 'sortable-table-cell-number'],
       [typeof value === 'string', () => 'sortable-table-cell-text'],
     ], () => 'sortable-table-cell-text')
-    return <td className={styles[className]} key={`${item.data[defaultProperty]}-${header.property}`}>{value}</td>
+    return (
+      <td
+        className={styles[className]}
+        key={`${item.data[defaultProperty]}-${header.property}`}
+        onClick={item.onClick}
+      >
+        {value}
+      </td>
+    )
   }, [])
 
   return (
@@ -79,11 +88,14 @@ const SortableTable = <T extends Record<string, IValue>,>({
         </tr>
       </thead>
       <tbody>
-        {sortedItems.map(item => (
-          <tr key={`${item.data[defaultProperty]}`}>
-            {headers.map(header => renderTd(item, header))}
-          </tr>
-        ))}
+        {sortedItems.map(item => {
+          const clickableClassName = item.onClick && styles['sortable-table-clickable']
+          return (
+            <tr key={`${item.data[defaultProperty]}`} className={clickableClassName}>
+              {headers.map(header => renderTd(item, header))}
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )
