@@ -1,20 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
-import styles from './StandingsTable.module.css'
+import { IStanding } from '../../../types/Standing'
 import when from '../../../utils/when'
-
-interface IStanding {
-  username: string
-  points: number
-  matchesPlayed: number
-  matchesWon: number
-  matchesLost: number
-  matchesDraw: number
-  gamesPlayed: number
-  gamesWon: number
-  gamesLost: number
-  gamesDraw: number
-}
+import styles from './StandingsTable.module.css'
 
 type IOrder = 'ascending' | 'descending'
 
