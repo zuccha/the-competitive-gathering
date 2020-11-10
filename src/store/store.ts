@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import { authReducer } from './slices/auth'
 import { leaguesReducer } from './slices/leagues'
+import { leaguesMatchesReducer } from './slices/leaguesMatches'
 import { leaguesStandingsReducer } from './slices/leaguesStandings'
 import { overallStandingsReducer } from './slices/overallStandings'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   leagues: leaguesReducer,
+  leaguesMatches: leaguesMatchesReducer,
   leaguesStandings: leaguesStandingsReducer,
   overallStandings: overallStandingsReducer,
 })
