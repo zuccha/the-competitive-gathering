@@ -19,6 +19,7 @@ export type IItem<T extends Record<string, IValue>> = {
 
 type ISortableTableProps<T extends Record<string, IValue>> = {
   className?: string
+  defaultOrder?: IOrder
   defaultProperty: keyof T
   headers: IHeader<T>[]
   items: IItem<T>[]
@@ -26,13 +27,14 @@ type ISortableTableProps<T extends Record<string, IValue>> = {
 
 const SortableTable = <T extends Record<string, IValue>,>({
   className,
+  defaultOrder = 'ascending',
+  defaultProperty,
   headers,
   items,
-  defaultProperty,
 }: ISortableTableProps<T>): React.ReactElement => {
   const [sortingBy, setSortingBy] = useState<{ property: keyof T, order: IOrder }>({
     property: defaultProperty,
-    order: 'ascending',
+    order: defaultOrder,
   })
 
   const sortedItems = useMemo(() => {
@@ -47,35 +49,42 @@ const SortableTable = <T extends Record<string, IValue>,>({
   }, [sortingBy, items])
 
   const renderTh = useCallback((header: IHeader<T>) => {
-    if (sortingBy.property !== header.property) {
-      const handleSort = () => setSortingBy({ property: header.property, order: 'ascending' })
-      return <th onClick={handleSort}>{header.label}</th>
-    }
-    if (sortingBy.order === 'ascending') {
-      const handleSort = () => setSortingBy({ property: header.property, order: 'descending' })
-      return <th onClick={handleSort}>{header.label} <MdKeyboardArrowUp /></th>
-    }
-    const handleSort = () => setSortingBy({ property: header.property, order: 'ascending' })
-    return <th onClick={handleSort}>{header.label} <MdKeyboardArrowDown /></th>
+    const order = sortingBy.property === header.property && sortingBy.order === 'ascending'
+      ? 'descending'
+      : 'ascending'
+
+    const label = when([
+      [sortingBy.property !== header.property, () => <>{header.label}</>],
+      [sortingBy.order === 'ascending', () => <>{header.label} <MdKeyboardArrowUp /></>],
+    ], () => <>{header.label} <MdKeyboardArrowDown /></>)
+
+    const handleSort = () => setSortingBy({ property: header.property, order })
+    return <th onClick={handleSort} key={`${header.property}`}>{label}</th>
   }, [sortingBy])
 
   const renderTd = useCallback((item: IItem<T>, header: IHeader<T>) => {
-    const value = item.data[header.property]
-    if (typeof value === 'number') return <td className={styles['sortable-table-cell-number']}>{value}</td>
-    if (typeof value === 'string') return <td className={styles['sortable-table-cell-text']}>{value}</td>
-    return <td className={styles['sortable-table-cell-text']}>-</td>
+    const value = item.data[header.property] || '-'
+    const className = when([
+      [typeof value === 'number', () => 'sortable-table-cell-number'],
+      [typeof value === 'string', () => 'sortable-table-cell-text'],
+    ], () => 'sortable-table-cell-text')
+    return <td className={styles[className]} key={`${item.data[defaultProperty]}-${header.property}`}>{value}</td>
   }, [])
 
   return (
     <table className={classnames(styles['sortable-table'], className)}>
-      <tr>
-        {headers.map(header => renderTh(header))}
-      </tr>
-      {sortedItems.map(item => (
-        <tr key={`${item.data[defaultProperty]}`}>
-          {headers.map(header => renderTd(item, header))}
+      <thead>
+        <tr>
+          {headers.map(header => renderTh(header))}
         </tr>
-      ))}
+      </thead>
+      <tbody>
+        {sortedItems.map(item => (
+          <tr key={`${item.data[defaultProperty]}`}>
+            {headers.map(header => renderTd(item, header))}
+          </tr>
+        ))}
+      </tbody>
     </table>
   )
 }
