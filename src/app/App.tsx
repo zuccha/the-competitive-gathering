@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import RoutePrivate from './components/RoutePrivate'
 import RoutePublic from './components/RoutePublic'
 import Login from './views/Login'
+import Overview from './views/Overview'
 import styles from './App.module.css'
 
 const App: React.FC = () => {
@@ -16,7 +17,7 @@ const App: React.FC = () => {
             <Login />
           </RoutePublic>
           <RoutePrivate path='/'>
-            OVERVIEW
+            <Overview />
           </RoutePrivate>
         </Switch>
       </BrowserRouter>
