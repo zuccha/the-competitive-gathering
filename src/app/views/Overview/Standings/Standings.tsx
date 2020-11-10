@@ -14,7 +14,11 @@ const Standings: React.FC = () => {
       <h2>{'Players\' Standings'}</h2>
       <RequestSwitch
         status={standingsOverall.status}
-        renderSuccess={() => <StandingsTable standings={standingsOverall.data!} />}
+        renderSuccess={() => {
+          return standingsOverall.data!.length === 0
+            ? <div>There are no players.</div>
+            : <StandingsTable standings={standingsOverall.data!} />
+        }}
       />
     </div>
   )
