@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { IStanding } from '../../../../../types/Standing'
 import wait from '../../../../../utils/wait'
 import { IStoreDispatch, IStoreState } from '../../../../store'
-import selectStandingsOverall from '../../selectors/selectStandingsOverall'
+import selectOverallStandings from '../../selectors/selectOverallStandings'
 
 const makeStanding = (
   username: string,
@@ -28,28 +28,28 @@ const makeStanding = (
   gamesDraw: gd,
 })
 
-const login = createAsyncThunk<
+const fetchOverallStandings = createAsyncThunk<
   IStanding[],
   void,
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
-  'standingsOverall/fetchStandingsOverall',
+  'overallStandings/fetchOverallStandings',
   async () => {
     // TODO: Implement once server is ready.
     await wait(500)
     return [
       makeStanding('Alvin', 10, 6, 3, 2, 1, 13, 7, 5, 1),
-      makeStanding('Amedeo', 7, 6, 2, 3, 1, 14, 5, 8, 1),
+      makeStanding('Ame', 7, 6, 2, 3, 1, 14, 5, 8, 1),
       makeStanding('Camo',   7, 6, 2, 3, 1, 14, 6, 7, 1),
       makeStanding('Galli',  5, 6, 3, 2, 1, 14, 7, 6, 1),
     ]
   },
   {
     condition: (args, { getState }) => {
-      const standingsOverall = selectStandingsOverall(getState())
-      return standingsOverall.status !== 'loading'
+      const overallStandings = selectOverallStandings(getState())
+      return overallStandings.status !== 'loading'
     },
   },
 )
 
-export default login
+export default fetchOverallStandings
