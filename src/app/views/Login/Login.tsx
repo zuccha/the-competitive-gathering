@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Form, Formik } from 'formik'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
+import { IStoreDispatch } from '../../../store'
 import { login } from '../../../store/slices/auth'
+import when from '../../../utils/when'
 import FormInput from '../../components/FormInput'
 import styles from './Login.module.css'
 
@@ -13,12 +16,22 @@ const loginValidationSchema = Yup.object().shape({
 })
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch()
   const history = useHistory()
+  const dispatch: IStoreDispatch = useDispatch()
 
-  const handleSubmit = useCallback(values => {
-    dispatch(login(`fake-token-for-${values.username}`))
-    history.replace({ pathname: "/" })
+  const handleSubmit = useCallback((values, actions) => {
+    actions.setSubmitting(true)
+    dispatch(login({ username: values.username, password: values.password }))
+      .then(unwrapResult)
+      .then(() => { history.replace({ pathname: "/" }) })
+      .catch(error => {
+        const errorMessage = when([
+          [error.code === '401', () => 'Invalid credentials'],
+          [error.code === '500', () => 'We had a problem'],
+        ], () => 'An error occurred')
+        actions.setFieldError('password', errorMessage)
+        actions.setSubmitting(false)
+      })
   }, [dispatch, history])
 
   return (
@@ -27,7 +40,7 @@ const Login: React.FC = () => {
       onSubmit={handleSubmit}
       validationSchema={loginValidationSchema}
     >
-      {({ isValid, dirty }) => (
+      {({ dirty, isSubmitting, isValid }) => (
         <Form className={styles['login-form']}>
           <FormInput
             className={styles['login-form-input']}
@@ -40,8 +53,8 @@ const Login: React.FC = () => {
             placeholder='Password'
             type='password'
           />
-          <button type="submit" disabled={!isValid || !dirty}>
-            Login
+          <button type="submit" disabled={!dirty || !isValid || isSubmitting}>
+            {isSubmitting ? 'Login...' : 'Login'}
           </button>
         </Form>
       )}
