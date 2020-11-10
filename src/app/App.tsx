@@ -1,10 +1,10 @@
 import React from 'react'
-import { BrowserRouter, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, Switch } from 'react-router-dom'
 import RoutePrivate from './components/RoutePrivate'
-import RoutePublic from './components/RoutePublic';
+import RoutePublic from './components/RoutePublic'
 import Login from './views/Login'
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div>

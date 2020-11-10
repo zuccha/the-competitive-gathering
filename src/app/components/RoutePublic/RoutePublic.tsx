@@ -17,7 +17,7 @@ const RoutePublic: React.FC<IRoutePublicProps & RouteProps> = ({ children, ...re
         : children
       }
     />
-  );
+  )
 }
 
 export default RoutePublic

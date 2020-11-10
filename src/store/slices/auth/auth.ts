@@ -5,7 +5,7 @@ export interface IAuthState {
 }
 
 const initialState: IAuthState = {
-  token: undefined
+  token: undefined,
 }
 
 const auth = createSlice({

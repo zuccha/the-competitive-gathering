@@ -17,7 +17,7 @@ const RoutePrivate: React.FC<IRoutePrivateProps & RouteProps> = ({ children, ...
         : <Redirect to={{ pathname: "/login", state: { from: location } }} />
       }
     />
-  );
+  )
 }
 
 export default RoutePrivate
