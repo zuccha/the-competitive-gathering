@@ -26,7 +26,7 @@ const App: React.FC = () => {
             <button onClick={handleLogout}>Logout</button>
           </div>
         )
-        : 'Welcome to MTG league'
+        : 'Welcome to MTG League'
       }
     </div>
   )

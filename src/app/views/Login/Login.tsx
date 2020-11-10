@@ -42,6 +42,7 @@ const Login: React.FC = () => {
     >
       {({ dirty, isSubmitting, isValid }) => (
         <Form className={styles['login-form']}>
+          <h2>Login</h2>
           <FormInput
             className={styles['login-form-input']}
             name='username'
