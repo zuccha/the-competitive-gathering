@@ -19,7 +19,7 @@ const IconButton: React.FC<IIconButtonProps> = ({
         styles['icon-button'],
         disabled && styles['icon-button-disabled'],
       )}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
     >
       {children}
     </div>
