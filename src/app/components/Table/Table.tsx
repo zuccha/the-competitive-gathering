@@ -1,21 +1,14 @@
 import React from 'react'
+import Header from './Header'
 import styles from './Table.module.css'
-
-export type IColumn<T extends Record<string, unknown>> = {
-  id: keyof T
-  label: string
-  isSortable?: boolean
-  renderHeader?: (label: string) => React.ReactElement
-  renderData?: (data: T) => React.ReactElement
-}
-
-export type IRow<T extends Record<string, unknown>> = {
-  data: T
-}
+import { IColumn, IOrder, IRow } from './types'
+import useSort from './useSort'
 
 type ITableProps<T extends Record<string, unknown>> = {
   columns: IColumn<T>[]
   rows: IRow<T>[]
+  defaultSortingColumn?: IColumn<T>
+  defaultSortingOrder?: IOrder
   highlightHoveredRow?: boolean
   getRowId: (data: T) => string
   onClickRow?: (data: T) => void
@@ -24,11 +17,17 @@ type ITableProps<T extends Record<string, unknown>> = {
 const Table = <T extends Record<string, unknown>>({
   columns,
   rows,
+  defaultSortingColumn,
+  defaultSortingOrder,
   highlightHoveredRow = false,
   getRowId,
   onClickRow,
 }: ITableProps<T>): React.ReactElement => {
-
+  const {
+    sortedRows,
+    sortingBy,
+    sortByColumn,
+  } = useSort({ columns, rows, defaultSortingColumn, defaultSortingOrder })
   return (
     <table className={styles.table}>
       <thead>
@@ -37,8 +36,8 @@ const Table = <T extends Record<string, unknown>>({
             return (
               <th key={`${column.id}`}>
                 {column.renderHeader
-                  ? column.renderHeader(column.label)
-                  : column.label
+                  ? column.renderHeader(column, sortingBy, sortByColumn)
+                  : <Header column={column} sortingBy={sortingBy} sortByColumn={sortByColumn} />
                 }
               </th>
             )
@@ -46,7 +45,7 @@ const Table = <T extends Record<string, unknown>>({
         </tr>
       </thead>
       <tbody>
-        {rows.map(row => {
+        {sortedRows.map(row => {
           const rowId = getRowId(row.data)
           return (
             <tr key={rowId}>
