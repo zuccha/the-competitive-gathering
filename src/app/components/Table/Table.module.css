@@ -15,6 +15,14 @@
   background-color: #f8f9fa;
 }
 
+.table tbody tr.table-row-clickable:hover {
+  cursor: pointer;
+}
+
+.table tbody tr.table-row-highlight:hover {
+  background-color: #fffcd5;
+}
+
 .table tbody tr td {
   border: 1px solid #a2a9b1;
   padding: 0.2rem 0.4rem;

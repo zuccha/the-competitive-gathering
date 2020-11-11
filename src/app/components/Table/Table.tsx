@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import React from 'react'
 import Header from './Header'
 import styles from './Table.module.css'
@@ -47,8 +48,15 @@ const Table = <T extends Record<string, unknown>>({
       <tbody>
         {sortedRows.map(row => {
           const rowId = getRowId(row.data)
+          const handleClickRow = onClickRow
+            ? () => onClickRow(row.data)
+            : undefined
+          const className = classnames(
+            onClickRow && styles['table-row-clickable'],
+            highlightHoveredRow && styles['table-row-highlight'],
+          )
           return (
-            <tr key={rowId}>
+            <tr key={rowId} onClick={handleClickRow} className={className}>
               {columns.map(column => (
                 <td key={`${rowId}-${column.id}`}>
                   {column.renderData
