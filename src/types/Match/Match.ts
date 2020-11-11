@@ -11,7 +11,9 @@ export type IMatch = {
 
 const Match = {
   canEdit: (match: IMatch, username: string): boolean => {
-    return match.username1 === username || match.username2 === username
+    const isUserMatch = match.username1 === username || match.username2 === username
+    const isMatchDone = match.results !== undefined
+    return isUserMatch && !isMatchDone
   },
 }
 
