@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { selectGetLeagueStandings, fetchStandingsByLeague } from '../../../../store/slices/leaguesStandings'
 import RequestSwitch from '../../../components/RequestSwitch'
-import StandingsTable from './StandingsTable'
 import usePrefetch from '../../../hooks/usePrefetch'
-import { useParams } from 'react-router-dom'
+import StandingsTable from './StandingsTable'
 
 const Standings: React.FC = () => {
   const { id } = useParams<{ id: string }>()

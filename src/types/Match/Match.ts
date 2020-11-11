@@ -1,4 +1,5 @@
 export type IMatch = {
+  id: string
   username1: string
   username2: string
   results: {

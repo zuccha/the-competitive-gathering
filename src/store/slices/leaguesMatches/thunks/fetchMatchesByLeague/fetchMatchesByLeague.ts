@@ -6,12 +6,14 @@ import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectGetLeagueMatches from '../../selectors/selectGetLeagueMatches'
 
 const makeMatch = (
+  id: string,
   username1: string,
   username2: string,
   gamesWonByUsername1?: number,
   gamesWonByUsername2?: number,
   gamesDraw?: number,
 ): IMatch => ({
+  id,
   username1,
   username2,
   results: gamesDraw === undefined
@@ -34,14 +36,14 @@ const fetchMatchesByLeague = createAsyncThunk<
     await wait(500)
     if (['1', '2', '3', '4', '5'].includes(id)) {
       return [
-        makeMatch('Alvin', 'Ame',   1, 1, 0),
-        makeMatch('Ame',   'Camo'),
-        makeMatch('Camo',  'Galli'),
-        makeMatch('Galli', 'Alvin', 2, 0, 0),
-        makeMatch('Ame',   'Alvin', 1, 1, 1),
-        makeMatch('Camo',  'Ame',   2, 1, 0),
-        makeMatch('Galli', 'Camo'),
-        makeMatch('Alvin', 'Galli'),
+        makeMatch('1', 'Alvin', 'Ame',   1, 1, 0),
+        makeMatch('2', 'Ame',   'Camo'),
+        makeMatch('3', 'Camo',  'Galli'),
+        makeMatch('4', 'Galli', 'Alvin', 2, 0, 0),
+        makeMatch('5', 'Ame',   'Alvin', 1, 1, 1),
+        makeMatch('6', 'Camo',  'Ame',   2, 1, 0),
+        makeMatch('7', 'Galli', 'Camo'),
+        makeMatch('8', 'Alvin', 'Galli'),
       ]
     }
     throw new ErrorHttp('404')
