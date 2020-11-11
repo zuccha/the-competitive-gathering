@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { selectGetLeagueStandings, fetchStandingsByLeague } from '../../../../store/slices/leaguesStandings'
 import RequestSwitch from '../../../components/RequestSwitch'
 import usePrefetch from '../../../hooks/usePrefetch'
-import StandingsTable from './StandingsTable'
+import StandingsTable from '../../../components/StandingsTable'
 
 const Standings: React.FC = () => {
   const { id } = useParams<{ id: string }>()
