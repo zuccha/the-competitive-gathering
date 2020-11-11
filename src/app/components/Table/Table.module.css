@@ -1,0 +1,26 @@
+.table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.table thead tr {
+  background-color: #eaecf0;
+}
+
+.table thead tr th {
+  border: 1px solid #a2a9b1;
+}
+
+.table tbody tr {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr td {
+  border: 1px solid #a2a9b1;
+  padding: 0.2rem 0.4rem;
+}
+
+/* .table tbody tr.table-clickable:hover {
+  cursor: pointer;
+  background-color: #fffcd5;
+} */
