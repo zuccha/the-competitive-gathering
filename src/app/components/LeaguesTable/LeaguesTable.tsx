@@ -30,7 +30,7 @@ const columns: IColumn<ILeague>[] = [
   {
     id: 'dateEnd',
     label: 'End',
-    renderData: data => <CellText value={data.dateEnd || ''} />,
+    renderData: data => <CellText value={data.dateEnd} />,
     isSortable: true,
   },
   /* eslint-enable react/display-name */
@@ -41,11 +41,11 @@ const LeaguesTable: React.FC<ILeaguesTableProps> = ({ leagues }) => {
 
   const rows = useMemo(() => {
     return leagues.map(league => ({ data: league }))
-  }, [history, leagues])
+  }, [leagues])
 
   const handleClickRow = useCallback((league: ILeague) => {
     history.push(`/leagues/${league.id}`)
-  }, [])
+  }, [history])
 
   return (
     <Table
