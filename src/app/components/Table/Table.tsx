@@ -1,34 +1,49 @@
 import classnames from 'classnames'
-import React from 'react'
+import React, { useMemo } from 'react'
 import Header from './Header'
 import styles from './Table.module.css'
 import { IColumn, IOrder, IRow } from './types'
 import useSort from './useSort'
 
-type ITableProps<T extends Record<string, unknown>> = {
-  columns: IColumn<T>[]
+type ITableProps<
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+> = {
+  columns: IColumn<T, C>[]
   rows: IRow<T>[]
-  defaultSortingColumn?: IColumn<T>
+  defaultSortingColumn?: IColumn<T, C>
   defaultSortingOrder?: IOrder
   highlightHoveredRow?: boolean
+  customContext?: C
   getRowId: (data: T) => string
   onClickRow?: (data: T) => void
 }
 
-const Table = <T extends Record<string, unknown>>({
+const Table = <
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+>({
   columns,
   rows,
   defaultSortingColumn,
   defaultSortingOrder,
   highlightHoveredRow = false,
+  customContext,
   getRowId,
   onClickRow,
-}: ITableProps<T>): React.ReactElement => {
+}: ITableProps<T, C>): React.ReactElement => {
   const {
     sortedRows,
     sortingBy,
     sortByColumn,
   } = useSort({ columns, rows, defaultSortingColumn, defaultSortingOrder })
+
+  const context = useMemo(() => ({
+    sortByColumn,
+    sortingBy,
+    custom: customContext,
+  }), [sortByColumn, sortingBy])
+
   return (
     <table className={styles.table}>
       <thead>
@@ -37,8 +52,8 @@ const Table = <T extends Record<string, unknown>>({
             return (
               <th key={`${column.id}`}>
                 {column.renderHeader
-                  ? column.renderHeader(column, sortingBy, sortByColumn)
-                  : <Header column={column} sortingBy={sortingBy} sortByColumn={sortByColumn} />
+                  ? column.renderHeader(column, context)
+                  : <Header column={column} context={context} />
                 }
               </th>
             )
@@ -60,7 +75,7 @@ const Table = <T extends Record<string, unknown>>({
               {columns.map(column => (
                 <td key={`${rowId}-${column.id}`}>
                   {column.renderData
-                    ? column.renderData(row.data)
+                    ? column.renderData(row.data, context)
                     : `${row.data[column.id]}`
                   }
                 </td>

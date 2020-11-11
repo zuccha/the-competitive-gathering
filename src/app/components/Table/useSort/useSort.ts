@@ -8,30 +8,39 @@ const reverseOrder = (order: IOrder) => (
     : 'ascending'
 )
 
-type IUseSortArgs<T extends Record<string, unknown>> = {
-  columns: IColumn<T>[]
+type IUseSortArgs<
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+> = {
+  columns: IColumn<T, C>[]
   rows: IRow<T>[]
   defaultSortingOrder?: IOrder
-  defaultSortingColumn?: IColumn<T>
+  defaultSortingColumn?: IColumn<T, C>
 }
 
-type IUseSortReturn<T extends Record<string, unknown>> = {
+type IUseSortReturn<
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+> = {
   sortedRows: IRow<T>[]
-  sortingBy: ISortingBy<T>
-  sortByColumn: (column: IColumn<T>) => void
+  sortingBy: ISortingBy<T, C>
+  sortByColumn: (column: IColumn<T, C>) => void
 }
 
-const useSort = <T extends Record<string, unknown>>({
+const useSort = <
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+>({
   columns,
   rows,
   defaultSortingOrder = 'ascending',
   defaultSortingColumn,
-}: IUseSortArgs<T>): IUseSortReturn<T> => {
+}: IUseSortArgs<T, C>): IUseSortReturn<T, C> => {
   const sortableColumns = useMemo(() => {
     return columns.filter(column => column.isSortable)
   }, [columns])
 
-  const [sortingBy, setSortBy] = useState<ISortingBy<T>>({
+  const [sortingBy, setSortBy] = useState<ISortingBy<T, C>>({
     order: defaultSortingOrder,
     column: defaultSortingColumn || sortableColumns[0],
   })
@@ -49,7 +58,7 @@ const useSort = <T extends Record<string, unknown>>({
         })
   }, [sortingBy, rows])
 
-  const sortByColumn = useCallback((column: IColumn<T>) => {
+  const sortByColumn = useCallback((column: IColumn<T, C>) => {
     setSortBy(sortingBy.column?.id === column.id
       ? { order: reverseOrder(sortingBy.order), column }
       : { order: 'ascending', column },

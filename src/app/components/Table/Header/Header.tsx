@@ -1,34 +1,38 @@
 import classnames from 'classnames'
 import React, { useMemo } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
-import { IColumn, ISortingBy } from '../types'
+import { IColumn, IContext } from '../types'
 import styles from './Header.module.css'
 
-type IHeaderProps<T extends Record<string, unknown>> = {
-  column: IColumn<T>
-  sortingBy: ISortingBy<T>
-  sortByColumn: (column: IColumn<T>) => void
+type IHeaderProps<
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+> = {
+  column: IColumn<T, C>
+  context: IContext<T, C>
 }
 
-const Header = <T extends Record<string, unknown>>({
+const Header = <
+  T extends Record<string, unknown>,
+  C extends Record<string, unknown> | undefined = undefined,
+>({
   column,
-  sortingBy,
-  sortByColumn,
-}: IHeaderProps<T>): React.ReactElement => {
+  context,
+}: IHeaderProps<T, C>): React.ReactElement => {
   const onClick = useMemo(() => {
     return column.isSortable
-      ? () => sortByColumn(column)
+      ? () => context.sortByColumn(column)
       : undefined
-  }, [column, sortByColumn])
+  }, [column, context])
 
   const icon = useMemo(() => {
-    return column.id !== sortingBy.column?.id
+    return column.id !== context.sortingBy.column?.id
       ? ''
-      : (sortingBy.order === 'ascending'
+      : (context.sortingBy.order === 'ascending'
         ? <MdKeyboardArrowUp />
         : <MdKeyboardArrowDown />
       )
-  }, [column, sortingBy])
+  }, [column, context])
 
   return (
     <div
