@@ -1,19 +1,25 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { selectUsername } from '../../../store/slices/auth'
 import Match, { IMatch } from '../../../types/Match'
 import IconButton from '../IconButton'
 import Table, { CellInt, CellText, IColumn } from '../Table'
+import RegisterResultModal from './RegisterResultModal'
 import { IMatchForTable } from './types'
 import toMatch from './utils/toMatch'
 import toMatchForTable from './utils/toMatchForTable'
 
-type IMatchesTableProps = {
+type IMatchesTableEditableProps = {
   matches: IMatch[]
 }
 
-const columns: IColumn<IMatchForTable, { username: string | undefined }>[] = [
+type ICustomContext = {
+  username: string | undefined
+  openConfirmResultModal: (match: IMatch) => void
+}
+
+const columns: IColumn<IMatchForTable, ICustomContext>[] = [
   /* eslint-disable react/display-name */
   {
     id: 'id',
@@ -52,16 +58,18 @@ const columns: IColumn<IMatchForTable, { username: string | undefined }>[] = [
     id: 'actions',
     label: '',
     renderData: (data, context) => {
-      const handleClick = () => {/* do nothing */}
-      const disabled = !context.custom?.username || !Match.canEdit(toMatch(data), context.custom.username)
+      const match = toMatch(data)
+      const handleClick = () => context.custom?.openConfirmResultModal(match)
+      const disabled = !context.custom?.username || !Match.canEdit(match, context.custom.username)
       return <IconButton onClick={handleClick} disabled={disabled}><BiEdit /></IconButton>
     },
   },
   /* eslint-enable react/display-name */
 ]
 
-const MatchesTable: React.FC<IMatchesTableProps> = ({ matches }) => {
+const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({ matches }) => {
   const username = useSelector(selectUsername)
+  const [confirmResultData, setConfirmResultData] = useState<IMatch | undefined>(undefined)
 
   const rows = useMemo(() => {
     return matches.map(match => ({ data: toMatchForTable(match) }))
@@ -69,17 +77,27 @@ const MatchesTable: React.FC<IMatchesTableProps> = ({ matches }) => {
 
   const customContext = useMemo(() => ({
     username,
+    openConfirmResultModal: setConfirmResultData,
   }), [username])
 
   return (
-    <Table
-      columns={columns}
-      rows={rows}
-      defaultSortingOrder='descending'
-      customContext={customContext}
-      getRowId={data => data.id}
-    />
+    <>
+      <Table
+        columns={columns}
+        rows={rows}
+        defaultSortingOrder='descending'
+        customContext={customContext}
+        getRowId={data => data.id}
+      />
+      {confirmResultData && (
+        <RegisterResultModal
+          match={confirmResultData}
+          onCancel={() => setConfirmResultData(undefined)}
+          onRegister={() => setConfirmResultData(undefined)}
+        />
+      )}
+    </>
   )
 }
 
-export default MatchesTable
+export default MatchesTableEditable

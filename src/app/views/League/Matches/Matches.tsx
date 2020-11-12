@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { selectGetLeagueMatches, fetchMatchesByLeague } from '../../../../store/slices/leaguesMatches'
-import MatchesTable from '../../../components/MatchesTable'
+import MatchesTableEditable from '../../../components/MatchesTableEditable'
 import RequestSwitch from '../../../components/RequestSwitch'
 import usePrefetch from '../../../hooks/usePrefetch'
 
@@ -21,7 +21,7 @@ const Standings: React.FC = () => {
         renderSuccess={() => {
           return leagueMatches.data!.length === 0
             ? <div>There are no matches.</div>
-            : <MatchesTable matches={leagueMatches.data!} />
+            : <MatchesTableEditable matches={leagueMatches.data!} />
         }}
       />
     </div>

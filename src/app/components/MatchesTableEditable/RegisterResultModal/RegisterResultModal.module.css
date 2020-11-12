@@ -1,0 +1,19 @@
+.register-result-modal {
+  width: 256px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.register-result-modal-input {
+  margin-bottom: 0.5em;
+}
+
+.register-result-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.register-result-modal-buttons button:first-child {
+  margin-right: 1em;
+}
