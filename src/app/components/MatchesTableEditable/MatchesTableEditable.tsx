@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { selectUsername } from '../../../store/slices/auth'
 import Match, { IMatch } from '../../../types/Match'
 import doNothing from '../../../utils/doNothing'
+import useIsMounted from '../../hooks/useIsMounted'
 import IconButton from '../IconButton'
 import Table, { CellInt, CellText, IColumn } from '../Table'
 import RegisterResultModal from './RegisterResultModal'
@@ -74,6 +75,8 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
   matches,
   onRegisterMatchResult,
 }) => {
+  const isMounted = useIsMounted()
+
   const username = useSelector(selectUsername)
   const [confirmResultData, setConfirmResultData] = useState<IMatch | undefined>(undefined)
 
@@ -81,8 +84,17 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
     return matches.map(match => ({ data: toMatchForTable(match) }))
   }, [matches])
 
-  const openConfirmResultModal = useCallback((match: IMatch) => { setConfirmResultData(match) }, [])
-  const closeConfirmResultModal = useCallback(() => { setConfirmResultData(undefined) }, [])
+  const openConfirmResultModal = useCallback((match: IMatch) => {
+    if (isMounted) {
+      setConfirmResultData(match)
+    }
+  }, [])
+
+  const closeConfirmResultModal = useCallback(() => {
+    if (isMounted) {
+      setConfirmResultData(undefined)
+    }
+  }, [])
 
   const customContext = useMemo(() => ({
     username,
