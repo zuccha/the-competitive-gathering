@@ -1,10 +1,7 @@
-import { unwrapResult } from '@reduxjs/toolkit'
+import { SerializedError, unwrapResult } from '@reduxjs/toolkit'
 import { Formik, Form } from 'formik'
 import React, { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
-import { IStoreDispatch } from '../../../../store'
-import { registerMatchResult } from '../../../../store/slices/leaguesMatches'
 import { IMatch } from '../../../../types/Match'
 import FormInput from '../../FormInput'
 import Modal from '../../Modal'
@@ -41,20 +38,22 @@ const confirmResultsValidationSchema = Yup.object().shape({
 
 type IRegisterResultModalProps = {
   match: IMatch
-  onRegister: () => void
+  onRegisterResult: (match: IMatch) => Promise<{ error?: SerializedError, payload: unknown }>
+  onRegisterResultSuccess: () => void
+  onRegisterResultFailure: () => void
   onCancel: () => void
 }
 
 const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
   match,
-  onRegister,
+  onRegisterResult,
+  onRegisterResultSuccess,
+  onRegisterResultFailure,
   onCancel,
 }) => {
-  const dispatch: IStoreDispatch = useDispatch()
-
   const handleSubmit = useCallback((values, actions) => {
     actions.setSubmitting(true)
-    dispatch(registerMatchResult({
+    onRegisterResult({
       id: match.id,
       username1: match.username1,
       username2: match.username2,
@@ -63,16 +62,17 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
         gamesWonByUsername2: values.gamesWonByUsername2,
         gamesDrew: values.gamesDrew,
       },
-    }))
+    })
       .then(unwrapResult)
       .then(() => {
         actions.setSubmitting(false)
-        onRegister()
+        onRegisterResultSuccess()
       })
       .catch(() => {
         actions.setSubmitting(false)
+        onRegisterResultFailure()
       })
-  }, [dispatch])
+  }, [onRegisterResult, onRegisterResultSuccess, onRegisterResultFailure])
 
   return (
     <Modal onClickOutside={onCancel}>

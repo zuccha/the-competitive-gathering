@@ -1,9 +1,10 @@
 import { SerializedError } from '@reduxjs/toolkit'
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { selectUsername } from '../../../store/slices/auth'
 import Match, { IMatch } from '../../../types/Match'
+import doNothing from '../../../utils/doNothing'
 import IconButton from '../IconButton'
 import Table, { CellInt, CellText, IColumn } from '../Table'
 import RegisterResultModal from './RegisterResultModal'
@@ -80,9 +81,12 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
     return matches.map(match => ({ data: toMatchForTable(match) }))
   }, [matches])
 
+  const openConfirmResultModal = useCallback((match: IMatch) => { setConfirmResultData(match) }, [])
+  const closeConfirmResultModal = useCallback(() => { setConfirmResultData(undefined) }, [])
+
   const customContext = useMemo(() => ({
     username,
-    openConfirmResultModal: setConfirmResultData,
+    openConfirmResultModal,
   }), [username])
 
   return (
@@ -97,10 +101,10 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
       {confirmResultData && (
         <RegisterResultModal
           match={confirmResultData}
-          onCancel={() => setConfirmResultData(undefined)}
+          onCancel={closeConfirmResultModal}
           onRegisterResult={onRegisterMatchResult}
-          onRegisterResultSuccess={() => setConfirmResultData(undefined)}
-          onRegisterResultFailure={() => {/* do nothing */}}
+          onRegisterResultSuccess={closeConfirmResultModal}
+          onRegisterResultFailure={doNothing}
         />
       )}
     </>

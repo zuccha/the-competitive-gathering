@@ -5,11 +5,11 @@ import { IStoreDispatch, IStoreState } from '../../../../store'
 
 const registerMatchResult = createAsyncThunk<
   void,
-  IMatch,
+  { leagueId: string, match: IMatch },
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
   'leaguesMatches/registerMatchResult',
-  async (/* match */) => {
+  async (/* { leagueId, match } */) => {
     // TODO: Implement once server is ready.
     await wait(500)
   },
