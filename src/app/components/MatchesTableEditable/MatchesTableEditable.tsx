@@ -1,3 +1,4 @@
+import { SerializedError } from '@reduxjs/toolkit'
 import React, { useMemo, useState } from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
@@ -9,10 +10,6 @@ import RegisterResultModal from './RegisterResultModal'
 import { IMatchForTable } from './types'
 import toMatch from './utils/toMatch'
 import toMatchForTable from './utils/toMatchForTable'
-
-type IMatchesTableEditableProps = {
-  matches: IMatch[]
-}
 
 type ICustomContext = {
   username: string | undefined
@@ -67,7 +64,15 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
   /* eslint-enable react/display-name */
 ]
 
-const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({ matches }) => {
+type IMatchesTableEditableProps = {
+  matches: IMatch[]
+  onRegisterMatchResult: (match: IMatch) => Promise<{ error?: SerializedError, payload: unknown }>
+}
+
+const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
+  matches,
+  onRegisterMatchResult,
+}) => {
   const username = useSelector(selectUsername)
   const [confirmResultData, setConfirmResultData] = useState<IMatch | undefined>(undefined)
 
@@ -93,7 +98,9 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({ matches })
         <RegisterResultModal
           match={confirmResultData}
           onCancel={() => setConfirmResultData(undefined)}
-          onRegister={() => setConfirmResultData(undefined)}
+          onRegisterResult={onRegisterMatchResult}
+          onRegisterResultSuccess={() => setConfirmResultData(undefined)}
+          onRegisterResultFailure={() => {/* do nothing */}}
         />
       )}
     </>
