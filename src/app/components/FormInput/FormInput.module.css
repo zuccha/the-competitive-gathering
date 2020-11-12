@@ -3,7 +3,17 @@
   flex-direction: column;
 }
 
+.form-input-label {
+  font-size: small;
+  font-weight: bold;
+  padding-bottom: 0.3em;
+}
+
 .form-input-error-message {
   font-size: smaller;
   color: red;
+}
+
+.form-input-error-message-always-spaced {
+  min-height: 1.2em;
 }
