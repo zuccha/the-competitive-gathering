@@ -1,0 +1,20 @@
+.create-league-modal {
+  width: 256px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.create-league-modal-input {
+  margin-bottom: 0.5em;
+}
+
+.create-league-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.2em;
+}
+
+.create-league-modal-buttons button:first-child {
+  margin-right: 1em;
+}
