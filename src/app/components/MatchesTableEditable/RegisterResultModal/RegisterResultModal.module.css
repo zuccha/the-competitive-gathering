@@ -12,6 +12,7 @@
 .register-result-modal-buttons {
   display: flex;
   justify-content: flex-end;
+  margin-top: 0.2em;
 }
 
 .register-result-modal-buttons button:first-child {
