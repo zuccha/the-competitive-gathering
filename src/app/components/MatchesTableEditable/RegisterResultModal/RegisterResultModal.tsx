@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { IMatch } from '../../../../types/Match'
 import when from '../../../../utils/when'
 import Button from '../../Button'
-import FormInput from '../../FormInput'
+import FormNumber from '../../FormNumber'
 import Modal from '../../Modal'
 import styles from './RegisterResultModal.module.css'
 
@@ -96,26 +96,32 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
         {({ dirty, isSubmitting, isValid }) => (
           <Form className={styles['register-result-modal']}>
             <h3>Register match results</h3>
-            <FormInput
+            <FormNumber
               className={styles['register-result-modal-input']}
               name='gamesWonByUsername1'
               label={`Games won by ${match.username1}`}
-              placeholder='Games'
+              placeholder='0'
               leaveSpaceForError
+              min={0}
+              max={2}
             />
-            <FormInput
+            <FormNumber
               className={styles['register-result-modal-input']}
               name='gamesWonByUsername2'
               label={`Games won by ${match.username2}`}
-              placeholder='Games'
+              placeholder='0'
               leaveSpaceForError
+              min={0}
+              max={2}
             />
-            <FormInput
+            <FormNumber
               className={styles['register-result-modal-input']}
               name='gamesDrew'
               label='Games drew'
-              placeholder='Games'
+              placeholder='0'
               leaveSpaceForError
+              min={0}
+              max={2}
             />
             <div className={styles['register-result-modal-buttons']}>
               <Button disabled={isSubmitting} onClick={onCancel}>

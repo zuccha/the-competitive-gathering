@@ -8,7 +8,8 @@ import { IStoreDispatch } from '../../../store'
 import { login } from '../../../store/slices/auth'
 import when from '../../../utils/when'
 import Button from '../../components/Button'
-import FormInput from '../../components/FormInput'
+import FormPassword from '../../components/FormPassword'
+import FormText from '../../components/FormText'
 import styles from './Login.module.css'
 
 const loginValidationSchema = Yup.object().shape({
@@ -44,17 +45,16 @@ const Login: React.FC = () => {
       {({ dirty, isSubmitting, isValid }) => (
         <Form className={styles['login-form']}>
           <h2>Login</h2>
-          <FormInput
+          <FormText
             className={styles['login-form-input']}
             name='username'
             placeholder='Username'
             leaveSpaceForError
           />
-          <FormInput
+          <FormPassword
             className={styles['login-form-input']}
             name='password'
             placeholder='Password'
-            type='password'
             leaveSpaceForError
           />
           <Button type="submit" disabled={!dirty || !isValid || isSubmitting}>

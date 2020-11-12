@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { ILeague } from '../../../../../../types/League'
 import when from '../../../../../../utils/when'
 import Button from '../../../../../components/Button'
-import FormInput from '../../../../../components/FormInput'
+import FormText from '../../../../../components/FormText'
 import Modal from '../../../../../components/Modal'
 import styles from './CreateLeagueModal.module.css'
 
@@ -63,7 +63,7 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
         {({ dirty, isSubmitting, isValid }) => (
           <Form className={styles['create-league-modal']}>
             <h3>Create new league</h3>
-            <FormInput
+            <FormText
               className={styles['create-league-modal-input']}
               name='format'
               label='Format'
