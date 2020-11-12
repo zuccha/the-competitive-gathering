@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import Request, { IRequest } from '../../../types/Request'
 import { ILeague } from '../../../types/League'
 import fetchLeagues from './thunks/fetchLeagues'
+import createLeague from './thunks/createLeague'
 
 export type ILeaguesState = IRequest<ILeague[]>
 
@@ -20,6 +21,9 @@ const leagues = createSlice({
     })
     builder.addCase(fetchLeagues.rejected, () => {
       return Request.makeFailure()
+    })
+    builder.addCase(createLeague.fulfilled, () => {
+      return Request.makeInitial()
     })
   },
 })

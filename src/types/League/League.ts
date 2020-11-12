@@ -1,6 +1,6 @@
 export type ILeague = {
   id: string
-  dateStart: string
+  dateStart: string | undefined
   dateEnd: string | undefined
   format: string
 }
