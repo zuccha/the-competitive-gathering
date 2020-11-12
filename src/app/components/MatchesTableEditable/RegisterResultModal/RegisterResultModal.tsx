@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik'
 import React, { useCallback } from 'react'
 import * as Yup from 'yup'
 import { IMatch } from '../../../../types/Match'
+import when from '../../../../utils/when'
 import Button from '../../Button'
 import FormInput from '../../FormInput'
 import Modal from '../../Modal'
@@ -69,7 +70,13 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
         actions.setSubmitting(false)
         onRegisterResultSuccess()
       })
-      .catch(() => {
+      .catch(error => {
+        const errorMessage = when([
+          [error.code === '400', () => 'The provided results are not valid'],
+          [error.code === '403', () => 'You cannot register results for this match'],
+          [error.code === '500', () => 'There was a problem, try again'],
+        ], () => 'An error occurred')
+        actions.setFieldError('gamesDrew', errorMessage)
         actions.setSubmitting(false)
         onRegisterResultFailure()
       })
