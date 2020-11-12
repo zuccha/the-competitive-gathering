@@ -2,6 +2,10 @@ html, body, #root {
   height: 100%;
 }
 
+html {
+  --color-primary: #fffcd5;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,4 +18,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a:visited {
+  color: inherit
 }

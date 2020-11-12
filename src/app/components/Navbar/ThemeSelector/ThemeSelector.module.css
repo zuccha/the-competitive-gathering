@@ -1,0 +1,22 @@
+.theme-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-selector-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  border: 2px solid grey;
+  margin-right: 0.2em;
+  cursor: pointer;
+}
+
+.theme-selector-color:last-child {
+  margin-right: 0;
+}
+
+.theme-selector-color.selected {
+  border: 2px solid black;
+}

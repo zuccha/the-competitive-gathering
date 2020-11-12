@@ -4,6 +4,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { IStoreDispatch } from '../../../store'
 import { logout, selectIsLoggedIn, selectUsername } from '../../../store/slices/auth'
 import styles from './Navbar.module.css'
+import ThemeSelector from './ThemeSelector'
 
 const App: React.FC = () => {
   const location = useLocation()
@@ -19,7 +20,12 @@ const App: React.FC = () => {
   }, [dispatch, history])
 
   if (!isLoggedIn) {
-    return null
+    return (
+      <div className={styles['navbar']}>
+        <div />
+        <ThemeSelector />
+      </div>
+    )
   }
 
   return (
@@ -28,10 +34,11 @@ const App: React.FC = () => {
         ? <div />
         : <Link to='/'>Home</Link>
       }
-      <div>
-        {'Hello '}
-        <b>{username}</b>
-        {' | '}
+      <div className={styles['navbar-right']}>
+        <span>{'Hello '}<b>{username}</b></span>
+        <span className={styles['navbar-separator']}>|</span>
+        <ThemeSelector />
+        <span className={styles['navbar-separator']}>|</span>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>

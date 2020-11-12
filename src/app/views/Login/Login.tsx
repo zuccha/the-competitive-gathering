@@ -47,12 +47,14 @@ const Login: React.FC = () => {
             className={styles['login-form-input']}
             name='username'
             placeholder='Username'
+            leaveSpaceForError
           />
           <FormInput
             className={styles['login-form-input']}
             name='password'
             placeholder='Password'
             type='password'
+            leaveSpaceForError
           />
           <button type="submit" disabled={!dirty || !isValid || isSubmitting}>
             {isSubmitting ? 'Login...' : 'Login'}

@@ -20,7 +20,7 @@
 }
 
 .table tbody tr.table-row-highlight:hover {
-  background-color: #fffcd5;
+  background-color: var(--color-primary);
 }
 
 .table tbody tr td {
