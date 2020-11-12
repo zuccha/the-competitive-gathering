@@ -1,8 +1,8 @@
-.icon-button {
+.button-icon {
   cursor: pointer;
 }
 
-.icon-button-disabled {
+.button-icon-disabled {
   cursor: not-allowed;
   color: grey;
 }

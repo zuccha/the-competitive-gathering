@@ -6,7 +6,7 @@ import { selectUsername } from '../../../store/slices/auth'
 import Match, { IMatch } from '../../../types/Match'
 import doNothing from '../../../utils/doNothing'
 import useIsMounted from '../../hooks/useIsMounted'
-import IconButton from '../IconButton'
+import ButtonIcon from '../ButtonIcon'
 import Table, { CellInt, CellText, IColumn } from '../Table'
 import RegisterResultModal from './RegisterResultModal'
 import { IMatchForTable } from './types'
@@ -60,7 +60,7 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
       const match = toMatch(data)
       const handleClick = () => context.custom?.openConfirmResultModal(match)
       const disabled = !context.custom?.username || !Match.canEdit(match, context.custom.username)
-      return <IconButton onClick={handleClick} disabled={disabled}><BiEdit /></IconButton>
+      return <ButtonIcon onClick={handleClick} disabled={disabled}><BiEdit /></ButtonIcon>
     },
   },
   /* eslint-enable react/display-name */

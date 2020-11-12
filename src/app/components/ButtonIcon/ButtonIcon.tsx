@@ -1,14 +1,14 @@
 import classnames from 'classnames'
 import React from 'react'
-import styles from './IconButton.module.css'
+import styles from './ButtonIcon.module.css'
 
-type IIconButtonProps = {
+type IButtonIconProps = {
   children: React.ReactChild
   disabled?: boolean
   onClick: () => void
 }
 
-const IconButton: React.FC<IIconButtonProps> = ({
+const ButtonIcon: React.FC<IButtonIconProps> = ({
   children,
   disabled = false,
   onClick,
@@ -16,8 +16,8 @@ const IconButton: React.FC<IIconButtonProps> = ({
   return (
     <div
       className={classnames(
-        styles['icon-button'],
-        disabled && styles['icon-button-disabled'],
+        styles['button-icon'],
+        disabled && styles['button-icon-disabled'],
       )}
       onClick={disabled ? undefined : onClick}
     >
@@ -26,4 +26,4 @@ const IconButton: React.FC<IIconButtonProps> = ({
   )
 }
 
-export default IconButton
+export default ButtonIcon
