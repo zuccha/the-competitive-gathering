@@ -11,17 +11,17 @@ const makeMatch = (
   username2: string,
   gamesWonByUsername1?: number,
   gamesWonByUsername2?: number,
-  gamesDraw?: number,
+  gamesDrew?: number,
 ): IMatch => ({
   id,
   username1,
   username2,
-  results: gamesDraw === undefined
+  results: gamesDrew === undefined
     ? undefined
     : {
       gamesWonByUsername1: gamesWonByUsername1!,
       gamesWonByUsername2: gamesWonByUsername2!,
-      gamesDraw: gamesDraw!,
+      gamesDrew: gamesDrew!,
     },
 })
 

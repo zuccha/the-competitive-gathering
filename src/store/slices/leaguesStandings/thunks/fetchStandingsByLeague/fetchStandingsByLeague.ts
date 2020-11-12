@@ -26,7 +26,7 @@ const makeStanding = (
   gamesPlayed: gp,
   gamesWon: gw,
   gamesLost: gl,
-  gamesDraw: gd,
+  gamesDrew: gd,
 })
 
 const fetchStandingsByLeague = createAsyncThunk<

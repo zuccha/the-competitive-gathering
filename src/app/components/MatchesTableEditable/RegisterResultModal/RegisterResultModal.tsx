@@ -21,20 +21,20 @@ const gameValidation = Yup
 const confirmResultsValidationSchema = Yup.object().shape({
   gamesWonByUsername1: gameValidation,
   gamesWonByUsername2: gameValidation,
-  gamesDraw: gameValidation
+  gamesDrew: gameValidation
     .test('total-games', 'Total number of games must be between 0 and 3', function() {
       if (!this.parent) {
         return true
       }
-      const { gamesWonByUsername1, gamesWonByUsername2, gamesDraw } = this.parent
+      const { gamesWonByUsername1, gamesWonByUsername2, gamesDrew } = this.parent
       if (
         isNaN(parseInt(gamesWonByUsername1)) ||
         isNaN(parseInt(gamesWonByUsername2)) ||
-        isNaN(parseInt(gamesDraw))
+        isNaN(parseInt(gamesDrew))
       ) {
         return true
       }
-      const sum = gamesWonByUsername1 + gamesWonByUsername2 + gamesDraw
+      const sum = gamesWonByUsername1 + gamesWonByUsername2 + gamesDrew
       return 0 <= sum && sum <= 3
     }),
 })
@@ -61,7 +61,7 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
       results: {
         gamesWonByUsername1: values.gamesWonByUsername1,
         gamesWonByUsername2: values.gamesWonByUsername2,
-        gamesDraw: values.gamesDraw,
+        gamesDrew: values.gamesDrew,
       },
     }))
       .then(unwrapResult)
@@ -80,7 +80,7 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
         initialValues={{
           gamesWonByUsername1: '',
           gamesWonByUsername2: '',
-          gamesDraw: '',
+          gamesDrew: '',
         }}
         onSubmit={handleSubmit}
         validationSchema={confirmResultsValidationSchema}
@@ -104,7 +104,7 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
             />
             <FormInput
               className={styles['register-result-modal-input']}
-              name='gamesDraw'
+              name='gamesDrew'
               label='Games drew'
               placeholder='Games'
               leaveSpaceForError

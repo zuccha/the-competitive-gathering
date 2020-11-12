@@ -7,7 +7,7 @@ const toMatchForTable = (match: IMatch): IMatchForTable => ({
   username2: match.username2,
   gamesWonByUsername1: match.results?.gamesWonByUsername1,
   gamesWonByUsername2: match.results?.gamesWonByUsername2,
-  gamesDraw: match.results?.gamesDraw,
+  gamesDrew: match.results?.gamesDrew,
   actions: ['register-result'],
 })
 

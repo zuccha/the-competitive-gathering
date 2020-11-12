@@ -63,9 +63,9 @@ const columns: IColumn<IStanding>[] = [
     isSortable: true,
   },
   {
-    id: 'gamesDraw',
+    id: 'gamesDrew',
     label: 'GD',
-    renderData: data => <CellInt value={data.gamesDraw} />,
+    renderData: data => <CellInt value={data.gamesDrew} />,
     isSortable: true,
   },
   /* eslint-enable react/display-name */

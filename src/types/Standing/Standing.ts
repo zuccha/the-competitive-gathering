@@ -8,5 +8,5 @@ export type IStanding = {
   gamesPlayed: number
   gamesWon: number
   gamesLost: number
-  gamesDraw: number
+  gamesDrew: number
 }

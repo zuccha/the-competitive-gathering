@@ -5,7 +5,7 @@ export type IMatch = {
   results: {
     gamesWonByUsername1: number
     gamesWonByUsername2: number
-    gamesDraw: number
+    gamesDrew: number
   } | undefined
 }
 

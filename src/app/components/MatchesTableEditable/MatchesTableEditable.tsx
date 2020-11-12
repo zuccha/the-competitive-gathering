@@ -50,9 +50,9 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
     renderData: data => <CellInt value={data.gamesWonByUsername2} />,
   },
   {
-    id: 'gamesDraw',
+    id: 'gamesDrew',
     label: 'Draws',
-    renderData: data => <CellInt value={data.gamesDraw} />,
+    renderData: data => <CellInt value={data.gamesDrew} />,
   },
   {
     id: 'actions',

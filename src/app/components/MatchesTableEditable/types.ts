@@ -6,6 +6,6 @@ export type IMatchForTable = {
   username2: string
   gamesWonByUsername1: number | undefined
   gamesWonByUsername2: number | undefined
-  gamesDraw: number | undefined
+  gamesDrew: number | undefined
   actions: IAction[]
 }
