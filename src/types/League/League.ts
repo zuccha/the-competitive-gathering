@@ -3,4 +3,6 @@ export type ILeague = {
   dateStart: string | undefined
   dateEnd: string | undefined
   format: string
+  playersMin: number
+  playersMax: number | undefined
 }

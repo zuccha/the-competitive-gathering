@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { ILeague } from '../../../types/League'
-import Table, { CellText, IColumn } from '../Table'
+import Table, { CellInt, CellText, IColumn } from '../Table'
 
 type ILeaguesTableProps = {
   leagues: ILeague[]
@@ -12,7 +12,7 @@ const columns: IColumn<ILeague>[] = [
   {
     id: 'id',
     label: 'Id',
-    renderData: data => <CellText value={data.id} />,
+    renderData: data => <CellText value={data.id} width='56px' />,
     isSortable: true,
   },
   {
@@ -31,6 +31,18 @@ const columns: IColumn<ILeague>[] = [
     id: 'dateEnd',
     label: 'End',
     renderData: data => <CellText value={data.dateEnd} />,
+    isSortable: true,
+  },
+  {
+    id: 'playersMin',
+    label: 'Min',
+    renderData: data => <CellInt value={data.playersMin} />,
+    isSortable: true,
+  },
+  {
+    id: 'playersMax',
+    label: 'Max',
+    renderData: data => <CellInt value={data.playersMax} placeholder='-' />,
     isSortable: true,
   },
   /* eslint-enable react/display-name */

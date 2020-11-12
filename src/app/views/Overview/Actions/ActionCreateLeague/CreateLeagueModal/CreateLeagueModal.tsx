@@ -5,11 +5,26 @@ import * as Yup from 'yup'
 import { ILeague } from '../../../../../../types/League'
 import when from '../../../../../../utils/when'
 import Button from '../../../../../components/Button'
+import FormNumber from '../../../../../components/FormNumber'
 import FormText from '../../../../../components/FormText'
 import Modal from '../../../../../components/Modal'
 import styles from './CreateLeagueModal.module.css'
 
+const areValuesValid = function(values?: { playersMin?: number, playersMax?: number }) {
+  return !values
+    || values.playersMin === undefined
+    || values.playersMax === undefined
+    || values.playersMin <= values.playersMax
+}
+
 const createLeagueValidationSchema = Yup.object().shape({
+  playersMin: Yup.number()
+    .min(2)
+    .required('Required')
+    .test('min-greater-or-equal-than-max', 'min <= max', function() { return areValuesValid(this.parent) }),
+  playersMax: Yup.number()
+    .min(2)
+    .test('max-smaller-or-equal-than-min', 'max >= min', function() { return areValuesValid(this.parent) }),
   format: Yup.string().required('Required'),
 })
 
@@ -33,6 +48,8 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
       format: values.format,
       dateStart: undefined,
       dateEnd: undefined,
+      playersMin: values.playersMin,
+      playersMax: values.playersMax,
     })
       .then(unwrapResult)
       .then(league => {
@@ -56,6 +73,8 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
       <Formik
         initialValues={{
           format: '',
+          playersMin: 2,
+          playersMax: undefined,
         }}
         onSubmit={handleSubmit}
         validationSchema={createLeagueValidationSchema}
@@ -63,6 +82,22 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
         {({ dirty, isSubmitting, isValid }) => (
           <Form className={styles['create-league-modal']}>
             <h3>Create new league</h3>
+            <div className={styles['create-league-modal-players']}>
+              <FormNumber
+                name='playersMin'
+                label='Min. players'
+                placeholder='2'
+                leaveSpaceForError
+                min={2}
+              />
+              <FormNumber
+                name='playersMax'
+                label='Max. players'
+                placeholder='Any'
+                leaveSpaceForError
+                min={2}
+              />
+            </div>
             <FormText
               className={styles['create-league-modal-input']}
               name='format'

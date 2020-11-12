@@ -2,10 +2,25 @@
   width: 220px;
   display: flex;
   flex-direction: column;
-
 }
 
-.create-league-modal-input {
+.create-league-modal-players {
+  display: flex;
+}
+
+.create-league-modal-players > * {
+  flex-grow: 1;
+}
+
+.create-league-modal-players > *:first-child {
+  margin-right: 0.5em;
+}
+
+.create-league-modal-players > *:last-child {
+  margin-left: 0.5em;
+}
+
+.create-league-modal-players, .create-league-modal-input {
   margin-bottom: 0.5em;
 }
 
