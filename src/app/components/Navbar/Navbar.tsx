@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { IStoreDispatch } from '../../../store'
 import { logout, selectIsLoggedIn, selectUsername } from '../../../store/slices/auth'
+import Button from '../Button'
 import styles from './Navbar.module.css'
 import ThemeSelector from './ThemeSelector'
 
@@ -39,7 +40,7 @@ const App: React.FC = () => {
         <span className={styles['navbar-separator']}>|</span>
         <ThemeSelector />
         <span className={styles['navbar-separator']}>|</span>
-        <button onClick={handleLogout}>Logout</button>
+        <Button onClick={handleLogout}>Logout</Button>
       </div>
     </div>
   )

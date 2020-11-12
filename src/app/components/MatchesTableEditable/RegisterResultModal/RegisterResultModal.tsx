@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik'
 import React, { useCallback } from 'react'
 import * as Yup from 'yup'
 import { IMatch } from '../../../../types/Match'
+import Button from '../../Button'
 import FormInput from '../../FormInput'
 import Modal from '../../Modal'
 import styles from './RegisterResultModal.module.css'
@@ -110,12 +111,12 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
               leaveSpaceForError
             />
             <div className={styles['register-result-modal-buttons']}>
-              <button disabled={isSubmitting} onClick={onCancel}>
+              <Button disabled={isSubmitting} onClick={onCancel}>
                 Cancel
-              </button>
-              <button type="submit" disabled={!dirty || !isValid || isSubmitting}>
+              </Button>
+              <Button type="submit" disabled={!dirty || !isValid || isSubmitting}>
                 {isSubmitting ? 'Register...' : 'Register'}
-              </button>
+              </Button>
             </div>
           </Form>
         )}

@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Form, Formik } from 'formik'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import { IStoreDispatch } from '../../../store'
 import { login } from '../../../store/slices/auth'
 import when from '../../../utils/when'
+import Button from '../../components/Button'
 import FormInput from '../../components/FormInput'
 import styles from './Login.module.css'
 
@@ -56,9 +57,9 @@ const Login: React.FC = () => {
             type='password'
             leaveSpaceForError
           />
-          <button type="submit" disabled={!dirty || !isValid || isSubmitting}>
+          <Button type="submit" disabled={!dirty || !isValid || isSubmitting}>
             {isSubmitting ? 'Login...' : 'Login'}
-          </button>
+          </Button>
         </Form>
       )}
     </Formik>
