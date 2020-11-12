@@ -1,0 +1,11 @@
+.actions {
+  display: flex;
+}
+
+.actions button {
+  margin-right: 1em;
+}
+
+.actions button:last-child {
+  margin-right: 0;
+}
