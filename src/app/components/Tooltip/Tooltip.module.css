@@ -17,6 +17,7 @@
   background-color: #56575e;
   color: white;
   font-size: smaller;
+  text-align: left;
 }
 
 .tooltip:hover .tooltip-text {
