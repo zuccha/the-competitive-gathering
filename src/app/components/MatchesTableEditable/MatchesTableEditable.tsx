@@ -41,16 +41,19 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
   {
     id: 'gamesWonByUsername1',
     label: 'P1 wins',
+    tooltip: 'Games won by player 1',
     renderData: data => <CellInt value={data.gamesWonByUsername1} />,
   },
   {
     id: 'gamesWonByUsername2',
     label: 'P2 wins',
+    tooltip: 'Games won by player 2',
     renderData: data => <CellInt value={data.gamesWonByUsername2} />,
   },
   {
     id: 'gamesDrew',
     label: 'Draws',
+    tooltip: 'Games drew by player 1 and 2',
     renderData: data => <CellInt value={data.gamesDrew} />,
   },
   {
