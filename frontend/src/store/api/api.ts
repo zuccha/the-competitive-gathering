@@ -1,4 +1,5 @@
 import axios from 'axios'
+import LocalStorage from '../../types/LocalStorage'
 
 const api = axios.create({
   baseURL: 'http://localhost:8000/api',
@@ -9,15 +10,15 @@ api.interceptors.request.use(config => {
     return config
   }
 
-  const auth = localStorage.getItem('auth')
-  ? JSON.parse(localStorage.getItem('auth') as string)
-  : undefined
+  const credentials = LocalStorage.readCredentials()
 
   return {
     ...config,
     headers: {
       ...config.headers,
-      Authorization: `Token ${auth?.data?.token}`,
+      Authorization: credentials
+        ? `Token ${credentials.token}`
+        : undefined,
     },
   }
 })
