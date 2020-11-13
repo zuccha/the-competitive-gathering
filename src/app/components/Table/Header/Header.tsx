@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import React, { useMemo } from 'react'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
+import Text from '../../Text'
 import { IColumn, IContext } from '../types'
 import styles from './Header.module.css'
 
@@ -39,7 +40,11 @@ const Header = <
       onClick={onClick}
       className={classnames(styles['header'], onClick && styles['header-clickable'])}
     >
-      {column.label} {icon}
+      <Text tooltip={column.tooltip}>
+        {column.label}
+      </Text>
+      &nbsp;
+      {icon}
     </div>
   )
 }

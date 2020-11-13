@@ -6,6 +6,7 @@ export type IColumn<
 > = {
   id: keyof T
   label: string
+  tooltip?: string
   isSortable?: boolean
   renderHeader?: (column: IColumn<T, C>, context: IContext<T, C>) => React.ReactElement | null
   renderData?: (data: T, context: IContext<T, C>) => React.ReactElement | null
