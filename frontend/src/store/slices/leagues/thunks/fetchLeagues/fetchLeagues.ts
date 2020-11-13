@@ -1,8 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ILeague } from '../../../../../types/League'
-import wait from '../../../../../utils/wait'
+import { ILeagueFormat } from '../../../../../types/LeagueFormat'
+import { ILeagueStatus } from '../../../../../types/LeagueStatus'
+import withErrorHttp from '../../../../../utils/withErrorHttp'
+import api from '../../../../api'
 import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectLeagues from '../../selectors/selectLeagues'
+
+type ILeagueApi = {
+  id: number
+  creator: string | null
+  players: string[]
+  status: ILeagueStatus
+  format: ILeagueFormat
+  date_start: string | null
+  date_end: string | null
+  players_min: number
+  players_max: number | null
+  rounds: number
+}
 
 const fetchLeagues = createAsyncThunk<
   ILeague[],
@@ -10,17 +26,17 @@ const fetchLeagues = createAsyncThunk<
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
   'leagues/fetchLeagues',
-  async () => {
-    // TODO: Implement once server is ready.
-    await wait(500)
-    return [
-      { id: '1', format: 'Modern', dateStart: '2020-08-01', dateEnd: '2020-08-31', playersMin: 2, playersMax: undefined },
-      { id: '2', format: 'Modern', dateStart: '2020-09-01', dateEnd: '2020-09-30', playersMin: 3, playersMax: 4 },
-      { id: '3', format: 'Legacy', dateStart: '2020-09-15', dateEnd: '2020-10-14', playersMin: 2, playersMax: 4 },
-      { id: '4', format: 'Modern', dateStart: '2020-10-01', dateEnd: '2020-10-31', playersMin: 4, playersMax: undefined },
-      { id: '5', format: 'Modern', dateStart: '2020-11-01', dateEnd: undefined,    playersMin: 2, playersMax: undefined },
-    ]
-  },
+  withErrorHttp(async () => {
+    const { data } = await api.get('/leagues')
+    return data.map((league: ILeagueApi): ILeague => ({
+      id: `${league.id}`,
+      format: league.format,
+      dateStart: league.date_start || undefined,
+      dateEnd: league.date_end || undefined,
+      playersMin: league.players_min,
+      playersMax: league.players_max || undefined,
+    }))
+  }),
   {
     condition: (args, { getState }) => {
       const leagues = selectLeagues(getState())
