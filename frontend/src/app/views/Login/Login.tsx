@@ -28,7 +28,7 @@ const Login: React.FC = () => {
       .then(() => { history.replace({ pathname: "/" }) })
       .catch(error => {
         const errorMessage = when([
-          [error.code === '401', () => 'Invalid credentials'],
+          [error.code === '400', () => 'Invalid credentials'],
           [error.code === '500', () => 'We had a problem'],
         ], () => 'An error occurred')
         actions.setFieldError('password', errorMessage)

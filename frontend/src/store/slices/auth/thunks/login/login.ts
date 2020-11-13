@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import ErrorHttp from '../../../../../types/ErrorHttp'
-import wait from '../../../../../utils/wait'
+import withErrorHttp from '../../../../../utils/withErrorHttp'
+import api from '../../../../api'
 import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectAuthStatus from '../../selectors/selectAuthStatus'
 
@@ -10,13 +10,13 @@ const login = createAsyncThunk<
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
   'auth/login',
-  async ({ username /*, password */ }) => {
-    // TODO: Implement once server is ready.
-    await wait(500)
-    if (username === '401') { throw new ErrorHttp('401') }
-    if (username === '500') { throw new ErrorHttp('500') }
-    return { username, token: 'token' }
-  },
+  withErrorHttp(async ({ username, password }) => {
+    const { data } = await api.post('/login', {
+      username,
+      password,
+    })
+    return { username, token: data.token }
+  }),
   {
     condition: (args, { getState }) => {
       const status = selectAuthStatus(getState())
