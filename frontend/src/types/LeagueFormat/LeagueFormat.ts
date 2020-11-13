@@ -8,3 +8,11 @@ export type ILeagueFormat = 'STANDARD'
   | 'DRAFT'
   | 'SEALED'
   | 'OTHER'
+
+const LeagueFormat = {
+  toString: (leagueFormat: ILeagueFormat): string => {
+    return leagueFormat.toLowerCase()
+  },
+}
+
+export default LeagueFormat

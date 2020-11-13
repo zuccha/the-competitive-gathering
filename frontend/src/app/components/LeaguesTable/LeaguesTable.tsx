@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { ILeague } from '../../../types/League'
+import LeagueFormat from '../../../types/LeagueFormat'
 import Table, { CellInt, CellText, IColumn } from '../Table'
 
 type ILeaguesTableProps = {
@@ -18,7 +19,7 @@ const columns: IColumn<ILeague>[] = [
   {
     id: 'format',
     label: 'Format',
-    renderData: data => <CellText value={data.format} />,
+    renderData: data => <CellText value={LeagueFormat.toString(data.format)} className='capitalize' />,
     isSortable: true,
   },
   {

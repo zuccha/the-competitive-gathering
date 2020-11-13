@@ -1,8 +1,10 @@
+import { ILeagueFormat } from '../LeagueFormat'
+
 export type ILeague = {
   id: string
   dateStart: string | undefined
   dateEnd: string | undefined
-  format: string
+  format: ILeagueFormat
   playersMin: number
   playersMax: number | undefined
 }

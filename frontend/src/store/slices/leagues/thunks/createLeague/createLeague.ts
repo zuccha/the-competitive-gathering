@@ -13,13 +13,13 @@ const createLeague = createAsyncThunk<
   async league => {
     // TODO: Implement once server is ready.
     await wait(500)
-    if (league.format === '400') {
+    if (league.format === 'MODERN') {
       throw new ErrorHttp('400')
     }
-    if (league.format === '403') {
+    if (league.format === 'LEGACY') {
       throw new ErrorHttp('403')
     }
-    if (league.format === '500') {
+    if (league.format === 'VINTAGE') {
       throw new ErrorHttp('500')
     }
     return {
