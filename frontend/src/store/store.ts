@@ -1,5 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
+import { ICredentials } from '../types/Credentials'
+import LocalStorage from '../types/LocalStorage'
+import Request from '../types/Request'
 import { authReducer } from './slices/auth'
 import { leaguesReducer } from './slices/leagues'
 import { leaguesMatchesReducer } from './slices/leaguesMatches'
@@ -14,18 +17,20 @@ const rootReducer = combineReducers({
   overallStandings: overallStandingsReducer,
 })
 
-const auth = localStorage.getItem('auth')
-  ? JSON.parse(localStorage.getItem('auth') as string)
-  : undefined
+const credentials = LocalStorage.readCredentials()
 
 const store = configureStore({
   reducer: rootReducer,
-  preloadedState: { auth },
+  preloadedState: {
+    auth: credentials
+      ? Request.makeSuccess(credentials)
+      : Request.makeInitial<ICredentials>(),
+  },
 })
 
 store.subscribe(() => {
   const auth = store.getState().auth
-  localStorage.setItem('auth', JSON.stringify(auth))
+  LocalStorage.saveCredentials(auth.data)
 })
 
 export default store

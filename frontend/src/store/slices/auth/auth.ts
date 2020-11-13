@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { ICredentials } from '../../../types/Credentials'
 import Request, { IRequest } from '../../../types/Request'
 import login from './thunks/login'
 import logout from './thunks/logout'
 
-export type IAuthState = IRequest<{
-  token: string | undefined
-  username: string | undefined
-}>
+export type IAuthState = IRequest<ICredentials | undefined>
 
 const initialState: IAuthState = Request.makeInitial()
 
@@ -31,7 +29,7 @@ const auth = createSlice({
       return Request.makeLoading()
     })
     builder.addCase(logout.fulfilled, () => {
-      return Request.makeSuccess({ username: undefined, token: undefined })
+      return Request.makeSuccess(undefined)
     })
     builder.addCase(logout.rejected, () => {
       return Request.makeFailure()
