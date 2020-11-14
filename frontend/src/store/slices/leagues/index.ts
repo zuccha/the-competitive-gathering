@@ -1,10 +1,15 @@
-import leagues, { ILeaguesState } from './leagues'
-import selectLeagues from './selectors/selectLeagues'
+import leagues from './leagues'
+import selectLeagues from './slices/ids/selectors/selectLeagues'
+import selectLeaguesStatus from './slices/ids/selectors/selectLeaguesStatus'
+import fetchLeagues from './slices/ids/thunks/fetchLeagues'
 import createLeague from './thunks/createLeague'
-import fetchLeagues from './thunks/fetchLeagues'
 
-export const leaguesReducer = leagues.reducer
-export { createLeague }
-export { fetchLeagues }
-export { selectLeagues }
-export type { ILeaguesState }
+const leaguesReducer = leagues.reducer
+
+export {
+  leaguesReducer,
+  selectLeagues,
+  selectLeaguesStatus,
+  fetchLeagues,
+  createLeague,
+}
