@@ -36,3 +36,17 @@ class League(models.Model):
 
   def __str__(self):
     return str(self.id) + " (" + self.status + ")"
+
+  def to_json(self):
+    return {
+      "id": self.id,
+      "creator": self.creator.username,
+      "players": list(map(lambda player: player.username, self.players.all())),
+      "status": self.status,
+      "format": self.format,
+      "date_start": self.date_start,
+      "date_end": self.date_end,
+      "players_min": self.players_min,
+      "players_max": self.players_max,
+      "rounds": self.rounds,
+    }
