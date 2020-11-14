@@ -1,32 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { IStanding } from '../../../../../types/Standing'
-import wait from '../../../../../utils/wait'
+import withErrorHttp from '../../../../../utils/withErrorHttp'
+import api from '../../../../api'
 import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectOverallStandings from '../../selectors/selectOverallStandings'
 
-const makeStanding = (
+type IStandingApi = {
   username: string,
-  pts: number,
-  mp: number,
-  mw: number,
-  ml: number,
-  md: number,
-  gp: number,
-  gw: number,
-  gl: number,
-  gd: number,
-): IStanding => ({
-  username,
-  points: pts,
-  matchesPlayed: mp,
-  matchesWon: mw,
-  matchesLost: ml,
-  matchesDraw: md,
-  gamesPlayed: gp,
-  gamesWon: gw,
-  gamesLost: gl,
-  gamesDrew: gd,
-})
+  points: number,
+  matches_played: number,
+  matches_won: number,
+  matches_lost: number,
+  matches_drew: number,
+  games_played: number,
+  games_won: number,
+  games_lost: number,
+  games_drew: number,
+}
 
 const fetchOverallStandings = createAsyncThunk<
   IStanding[],
@@ -34,16 +24,21 @@ const fetchOverallStandings = createAsyncThunk<
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
   'overallStandings/fetchOverallStandings',
-  async () => {
-    // TODO: Implement once server is ready.
-    await wait(500)
-    return [
-      makeStanding('Alvin', 10, 6, 3, 2, 1, 13, 7, 5, 1),
-      makeStanding('Ame', 7, 6, 2, 3, 1, 14, 5, 8, 1),
-      makeStanding('Camo',   7, 6, 2, 3, 1, 14, 6, 7, 1),
-      makeStanding('Galli',  5, 6, 3, 2, 1, 14, 7, 6, 1),
-    ]
-  },
+  withErrorHttp(async () => {
+    const { data } = await api.get('/standings')
+    return data.map((standingApi: IStandingApi): IStanding => ({
+      username: standingApi.username,
+      points: standingApi.points,
+      matchesPlayed: standingApi.matches_played,
+      matchesWon: standingApi.matches_won,
+      matchesLost: standingApi.matches_lost,
+      matchesDraw: standingApi.matches_drew,
+      gamesPlayed: standingApi.games_played,
+      gamesWon: standingApi.games_won,
+      gamesLost: standingApi.games_lost,
+      gamesDrew: standingApi.games_drew,
+    }))
+  }),
   {
     condition: (args, { getState }) => {
       const overallStandings = selectOverallStandings(getState())
