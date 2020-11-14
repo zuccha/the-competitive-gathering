@@ -12,7 +12,7 @@ const idsByLeague = createSlice({
       state[action.meta.arg] = Request.makeInitial()
     })
     builder.addCase(fetchStandingsByLeague.fulfilled, (state, action) => {
-      state[action.meta.arg] = Request.makeSuccess(action.payload.map(standing => standing.username))
+      state[action.meta.arg] = Request.makeSuccess(action.payload.map(standing => `${standing.username}/l${action.meta.arg}`))
     })
     builder.addCase(fetchStandingsByLeague.rejected, (state, action) => {
       state[action.meta.arg] = Request.makeFailure()
