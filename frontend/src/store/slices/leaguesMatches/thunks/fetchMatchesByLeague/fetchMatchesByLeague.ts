@@ -1,29 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import ErrorHttp from '../../../../../types/ErrorHttp'
 import { IMatch } from '../../../../../types/Match'
-import wait from '../../../../../utils/wait'
+import { IMatchStatus } from '../../../../../types/MatchStatus'
+import withErrorHttp from '../../../../../utils/withErrorHttp'
+import api from '../../../../api'
 import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectGetLeagueMatches from '../../selectors/selectGetLeagueMatches'
 
-const makeMatch = (
-  id: string,
-  username1: string,
-  username2: string,
-  gamesWonByUsername1?: number,
-  gamesWonByUsername2?: number,
-  gamesDrew?: number,
-): IMatch => ({
-  id,
-  username1,
-  username2,
-  results: gamesDrew === undefined
-    ? undefined
-    : {
-      gamesWonByUsername1: gamesWonByUsername1!,
-      gamesWonByUsername2: gamesWonByUsername2!,
-      gamesDrew: gamesDrew!,
-    },
-})
+type IMatchApi = {
+  id: number,
+  league: number,
+  player1: string | null,
+  player2: string | null,
+  status: IMatchStatus,
+  games_won_by_player1: number | null,
+  games_won_by_player2: number | null,
+  games_drew: number | null,
+}
 
 const fetchMatchesByLeague = createAsyncThunk<
   IMatch[],
@@ -31,23 +23,21 @@ const fetchMatchesByLeague = createAsyncThunk<
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
   'leaguesMatches/fetchMatchesByLeague',
-  async id => {
-    // TODO: Implement once server is ready.
-    await wait(500)
-    if (['1', '2', '3', '4', '5'].includes(id)) {
-      return [
-        makeMatch('1', 'Alvin', 'Ame',   1, 1, 0),
-        makeMatch('2', 'Ame',   'Camo'),
-        makeMatch('3', 'Camo',  'Galli'),
-        makeMatch('4', 'Galli', 'Alvin', 2, 0, 0),
-        makeMatch('5', 'Ame',   'Alvin', 1, 1, 1),
-        makeMatch('6', 'Camo',  'Ame',   2, 1, 0),
-        makeMatch('7', 'Galli', 'Camo'),
-        makeMatch('8', 'Alvin', 'Galli'),
-      ]
-    }
-    throw new ErrorHttp('404')
-  },
+  withErrorHttp(async id => {
+    const { data } = await api.get(`/matches/${id}`)
+    return data.map((matchApi: IMatchApi): IMatch => ({
+      id: `${matchApi.id}`,
+      username1: matchApi.player1 || 'unknown',
+      username2: matchApi.player2 || 'unknown',
+      results: matchApi.status === 'DONE'
+        ? {
+          gamesWonByUsername1: matchApi.games_won_by_player1 || 0,
+          gamesWonByUsername2: matchApi.games_won_by_player2 || 0,
+          gamesDrew: matchApi.games_drew || 0,
+        }
+        : undefined,
+    }))
+  }),
   {
     condition: (id, { getState }) => {
       const leagueMatches = selectGetLeagueMatches(getState())(id)
