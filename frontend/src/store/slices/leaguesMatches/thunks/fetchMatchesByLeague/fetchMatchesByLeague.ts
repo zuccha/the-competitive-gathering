@@ -24,7 +24,9 @@ const fetchMatchesByLeague = createAsyncThunk<
 >(
   'leaguesMatches/fetchMatchesByLeague',
   withErrorHttp(async id => {
-    const { data } = await api.get(`/matches/${id}`)
+    const { data } = await api.get('/matches', {
+      params: { league_id: id },
+    })
     return data.map((matchApi: IMatchApi): IMatch => ({
       id: `${matchApi.id}`,
       username1: matchApi.player1 || undefined,
