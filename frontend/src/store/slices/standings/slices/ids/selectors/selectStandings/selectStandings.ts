@@ -2,10 +2,11 @@ import { createSelector } from '@reduxjs/toolkit'
 import { IStoreState } from '../../../../../..'
 import { IRequest } from '../../../../../../../types/Request'
 import { IStanding } from '../../../../../../../types/Standing'
+import isNotUndefined from '../../../../../../../utils/isNotUndefined'
 
 const selectStandings = createSelector<
   IStoreState,
-  Record<string, IStanding>,
+  Record<string, IRequest<IStanding>>,
   IRequest<string[]>,
   IStanding[] | undefined
 >(
@@ -15,8 +16,8 @@ const selectStandings = createSelector<
     return ids.data === undefined
       ? undefined
       : ids.data
-        .map(id => byId[id])
-        .filter(standing => standing !== undefined)
+        .map(id => byId[id]?.data)
+        .filter(isNotUndefined)
   },
 )
 

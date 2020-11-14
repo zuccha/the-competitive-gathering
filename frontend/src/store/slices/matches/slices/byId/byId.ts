@@ -1,21 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { IMatch } from '../../../../../types/Match'
+import Request, { IRequest } from '../../../../../types/Request'
 import fetchMatches from '../ids/thunks/fetchMatches'
 import fetchMatchesByLeague from '../idsByLeague/thunks/fetchMatchesByLeague'
 
 const byId = createSlice({
   name: 'matches/byId',
-  initialState: {} as Record<string, IMatch>,
+  initialState: {} as Record<string, IRequest<IMatch>>,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchMatches.fulfilled, (state, action) => {
       action.payload.forEach(match => {
-        state[match.id] = match
+        state[match.id] = Request.makeSuccess(match)
       })
     })
     builder.addCase(fetchMatchesByLeague.fulfilled, (state, action) => {
       action.payload.forEach(match => {
-        state[match.id] = match
+        state[match.id] = Request.makeSuccess(match)
       })
     })
   },
