@@ -11,7 +11,7 @@ const Standings: React.FC = () => {
 
   return (
     <div>
-      <h2>{'Players\' Standings'}</h2>
+      <h2>Standings</h2>
       <RequestSwitch
         status={overallStandings.status}
         renderSuccess={() => {
