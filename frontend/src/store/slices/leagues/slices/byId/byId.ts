@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ILeague } from '../../../../../types/League'
 import Request, { IRequest } from '../../../../../types/Request'
-import fetchLeagues from '../ids/thunks/fetchLeagues'
+import fetchLeagues from '../../thunks/fetchLeagues'
 
 const byId = createSlice({
   name: 'leagues/byId',

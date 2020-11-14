@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { IStoreState } from '../../../../../..'
-import { ILeague } from '../../../../../../../types/League'
-import { IRequest } from '../../../../../../../types/Request'
-import isNotUndefined from '../../../../../../../utils/isNotUndefined'
+import { IStoreState } from '../../../..'
+import { ILeague } from '../../../../../types/League'
+import { IRequest } from '../../../../../types/Request'
+import isNotUndefined from '../../../../../utils/isNotUndefined'
 
 const selectLeagues = createSelector<
   IStoreState,

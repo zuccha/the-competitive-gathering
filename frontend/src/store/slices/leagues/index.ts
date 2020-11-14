@@ -1,11 +1,11 @@
 import leagues from './leagues'
-import selectLeagueById from './slices/byId/selectors/selectLeagueById'
-import selectLeagueStatusById from './slices/byId/selectors/selectLeagueStatusById'
-import fetchLeagueById from './slices/byId/thunks/fetchLeagueById'
-import selectLeagues from './slices/ids/selectors/selectLeagues'
-import selectLeaguesStatus from './slices/ids/selectors/selectLeaguesStatus'
-import fetchLeagues from './slices/ids/thunks/fetchLeagues'
+import selectLeagueById from './selectors/selectLeagueById'
+import selectLeagues from './selectors/selectLeagues'
+import selectLeaguesStatus from './selectors/selectLeaguesStatus'
+import selectLeagueStatusById from './selectors/selectLeagueStatusById'
 import createLeague from './thunks/createLeague'
+import fetchLeagueById from './thunks/fetchLeagueById'
+import fetchLeagues from './thunks/fetchLeagues'
 
 const leaguesReducer = leagues.reducer
 

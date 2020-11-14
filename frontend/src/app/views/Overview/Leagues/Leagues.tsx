@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectLeagues, selectLeaguesStatus } from '../../../../store/slices/leagues'
-import fetchLeagues from '../../../../store/slices/leagues/slices/ids/thunks/fetchLeagues'
+import fetchLeagues from '../../../../store/slices/leagues/thunks/fetchLeagues'
 import LeaguesTable from '../../../components/LeaguesTable'
 import RequestSwitch from '../../../components/RequestSwitch'
 import usePrefetch from '../../../hooks/usePrefetch'
