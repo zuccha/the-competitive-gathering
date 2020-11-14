@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import HttpResponseNotFound, JsonResponse
 from rest_framework.views import APIView
 from ..models.Match import Match
 from ..utils.parse_id import parse_id
@@ -9,6 +9,8 @@ class Matches(APIView):
   def get(self, request, id):
     if id != '':
       match = Match.objects.filter(id=id).first()
+      if match == None:
+        return HttpResponseNotFound()
       return JsonResponse(match.to_json(), safe=False)
 
     matches = Match.objects

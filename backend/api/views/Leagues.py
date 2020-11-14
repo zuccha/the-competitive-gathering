@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import HttpResponseNotFound, JsonResponse
 from rest_framework.views import APIView
 from ..models.League import League
 
@@ -6,6 +6,8 @@ class Leagues(APIView):
   def get(self, request, id):
     if id != '':
       league = League.objects.filter(id=id).first()
+      if league == None:
+        return HttpResponseNotFound()
       return JsonResponse(league.to_json(), safe=False)
 
     leagues = League.objects
