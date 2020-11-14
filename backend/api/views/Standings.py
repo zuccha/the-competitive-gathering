@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from rest_framework.views import APIView
-from ..models.League import League
 from ..models.Match import Match
 from ..utils.Standing import Standing
 
