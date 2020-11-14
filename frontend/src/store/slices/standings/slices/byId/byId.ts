@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Request, { IRequest } from '../../../../../types/Request'
 import { IStanding } from '../../../../../types/Standing'
-import fetchStandings from '../ids/thunks/fetchStandings'
-import fetchStandingsByLeague from '../idsByLeague/thunks/fetchStandingsByLeague'
+import fetchStandings from '../../thunks/fetchStandings'
+import fetchStandingsByLeague from '../../thunks/fetchStandingsByLeague'
 
 const byId = createSlice({
   name: 'standings/byId',

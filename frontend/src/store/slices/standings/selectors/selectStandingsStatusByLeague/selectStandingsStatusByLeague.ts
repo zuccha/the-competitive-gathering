@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { IStoreState } from '../../../../../..'
-import { IRequest } from '../../../../../../../types/Request'
-import { IRequestStatus } from '../../../../../../../types/RequestStatus'
+import { IRequest } from '../../../../../types/Request'
+import { IRequestStatus } from '../../../../../types/RequestStatus'
+import { IStoreState } from '../../../../store'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const selectStandingsStatusByLeague = (leagueId: string) => createSelector<

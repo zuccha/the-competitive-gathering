@@ -1,10 +1,10 @@
 import standings from './standings'
-import selectStandings from './slices/ids/selectors/selectStandings'
-import selectStandingsStatus from './slices/ids/selectors/selectStandingsStatus'
-import selectStandingsByLeague from './slices/idsByLeague/selectors/selectStandingsByLeague'
-import selectStandingsStatusByLeague from './slices/idsByLeague/selectors/selectStandingsStatusByLeague'
-import fetchStandings from './slices/ids/thunks/fetchStandings'
-import fetchStandingsByLeague from './slices/idsByLeague/thunks/fetchStandingsByLeague'
+import selectStandings from './selectors/selectStandings'
+import selectStandingsByLeague from './selectors/selectStandingsByLeague'
+import fetchStandings from './thunks/fetchStandings'
+import fetchStandingsByLeague from './thunks/fetchStandingsByLeague'
+import selectStandingsStatus from './selectors/selectStandingsStatus/selectStandingsStatus'
+import selectStandingsStatusByLeague from './selectors/selectStandingsStatusByLeague'
 
 const standingsReducer = standings.reducer
 

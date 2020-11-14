@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { IStoreDispatch, IStoreState } from '../../../../../..'
-import ApiStanding from '../../../../../../../types/ApiStanding'
-import { IStanding } from '../../../../../../../types/Standing'
-import withErrorHttp from '../../../../../../../utils/withErrorHttp'
-import api from '../../../../../../api'
+import ApiStanding from '../../../../../types/ApiStanding'
+import { IStanding } from '../../../../../types/Standing'
+import withErrorHttp from '../../../../../utils/withErrorHttp'
+import api from '../../../../api'
+import { IStoreDispatch, IStoreState } from '../../../../store'
 import selectStandingsStatusByLeague from '../../selectors/selectStandingsStatusByLeague'
 
 const fetchStandingsByLeague = createAsyncThunk<
