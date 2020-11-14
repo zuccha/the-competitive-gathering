@@ -21,3 +21,15 @@ class Match(models.Model):
 
   def __str__(self):
     return str(self.id) + " (" + str(self.player1) + " - " + str(self.player2) + ")"
+
+  def to_json(to_json):
+    return {
+      "id": to_json.id,
+      "league": to_json.league.id,
+      "player1": to_json.player1.username,
+      "player2": to_json.player2.username,
+      "status": to_json.status,
+      "games_won_by_player1": to_json.games_won_by_player1,
+      "games_won_by_player2": to_json.games_won_by_player2,
+      "games_drew": to_json.games_drew,
+    }
