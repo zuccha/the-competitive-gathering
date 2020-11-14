@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { IMatch } from '../../../../../types/Match'
 import Request, { IRequest } from '../../../../../types/Request'
-import fetchMatches from '../ids/thunks/fetchMatches'
-import fetchMatchesByLeague from '../idsByLeague/thunks/fetchMatchesByLeague'
+import fetchMatches from '../../thunks/fetchMatches'
+import fetchMatchesByLeague from '../../thunks/fetchMatchesByLeague'
 
 const byId = createSlice({
   name: 'matches/byId',

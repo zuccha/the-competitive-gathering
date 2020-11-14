@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Request from '../../../../../types/Request'
 import registerMatchResult from '../../thunks/registerMatchResult'
-import fetchMatches from './thunks/fetchMatches'
+import fetchMatches from '../../thunks/fetchMatches'
 
 const ids = createSlice({
   name: 'matches/ids',

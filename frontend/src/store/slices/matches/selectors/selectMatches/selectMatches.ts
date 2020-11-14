@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { IStoreState } from '../../../../../..'
-import { IMatch } from '../../../../../../../types/Match'
-import { IRequest } from '../../../../../../../types/Request'
-import isNotUndefined from '../../../../../../../utils/isNotUndefined'
+import { IMatch } from '../../../../../types/Match'
+import { IRequest } from '../../../../../types/Request'
+import isNotUndefined from '../../../../../utils/isNotUndefined'
+import { IStoreState } from '../../../../store'
 
 const selectMatches = createSelector<
   IStoreState,
