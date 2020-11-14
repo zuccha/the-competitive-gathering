@@ -2,18 +2,26 @@ import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { IStoreDispatch } from '../../../../store'
-import { selectGetLeagueMatches, fetchMatchesByLeague, registerMatchResult } from '../../../../store/slices/leaguesMatches'
+import {
+  fetchMatchesByLeague,
+  registerMatchResult,
+  selectMatchesByLeague,
+  selectMatchesStatusByLeague,
+} from '../../../../store/slices/matches'
 import { IMatch } from '../../../../types/Match'
 import MatchesTableEditable from '../../../components/MatchesTableEditable'
 import RequestSwitch from '../../../components/RequestSwitch'
 import usePrefetch from '../../../hooks/usePrefetch'
 
-const Standings: React.FC = () => {
+const Matches: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const fetchMatches = useCallback(() => fetchMatchesByLeague(id), [id])
 
-  const leagueMatches = useSelector(selectGetLeagueMatches)(id)
-  usePrefetch(leagueMatches.status, fetchMatches)
+  const selectMatches = useCallback(selectMatchesByLeague(id), [id])
+  const selectMatchesStatus = useCallback(selectMatchesStatusByLeague(id), [id])
+  const matches = useSelector(selectMatches)
+  const matchesStatus = useSelector(selectMatchesStatus)
+  usePrefetch(matchesStatus, fetchMatches)
 
   const dispatch: IStoreDispatch = useDispatch()
   const handleRegisterMatchResult = useCallback((match: IMatch) => {
@@ -24,13 +32,13 @@ const Standings: React.FC = () => {
     <div>
       <h2>Matches</h2>
       <RequestSwitch
-        status={leagueMatches.status}
+        status={matchesStatus}
         renderSuccess={() => {
-          return leagueMatches.data!.length === 0
+          return matches!.length === 0
             ? <div>There are no matches.</div>
             : (
               <MatchesTableEditable
-                matches={leagueMatches.data!}
+                matches={matches!}
                 onRegisterMatchResult={handleRegisterMatchResult}
               />
             )
@@ -40,4 +48,4 @@ const Standings: React.FC = () => {
   )
 }
 
-export default Standings
+export default Matches

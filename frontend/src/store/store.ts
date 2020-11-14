@@ -5,14 +5,14 @@ import LocalStorage from '../types/LocalStorage'
 import Request from '../types/Request'
 import { authReducer } from './slices/auth'
 import { leaguesReducer } from './slices/leagues'
-import { leaguesMatchesReducer } from './slices/leaguesMatches'
+import { matchesReducer } from './slices/matches'
 import { leaguesStandingsReducer } from './slices/leaguesStandings'
 import { overallStandingsReducer } from './slices/overallStandings'
 
 const rootReducer = combineReducers({
   auth: authReducer,
   leagues: leaguesReducer,
-  leaguesMatches: leaguesMatchesReducer,
+  matches: matchesReducer,
   leaguesStandings: leaguesStandingsReducer,
   overallStandings: overallStandingsReducer,
 })

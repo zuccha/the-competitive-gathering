@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Request, { IRequest } from '../../../types/Request'
 import { IStanding } from '../../../types/Standing'
-import { registerMatchResult } from '../leaguesMatches'
+import { registerMatchResult } from '../matches'
 import fetchOverallStandings from './thunks/fetchOverallStandings'
 
 export type IOverallStandingsState = IRequest<IStanding[]>

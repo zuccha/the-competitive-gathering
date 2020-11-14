@@ -9,7 +9,7 @@ const registerMatchResult = createAsyncThunk<
   { leagueId: string, match: IMatch },
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
-  'leaguesMatches/registerMatchResult',
+  'matches/registerMatchResult',
   async ({ /* leagueId, */ match }) => {
     // TODO: Implement once server is ready.
     await wait(500)
