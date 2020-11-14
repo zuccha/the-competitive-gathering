@@ -1,17 +1,24 @@
+import { createSelector } from '@reduxjs/toolkit'
 import { IStoreState } from '../../../../../..'
+import { IRequest } from '../../../../../../../types/Request'
 import { IStanding } from '../../../../../../../types/Standing'
 
-const selectStandingsByLeague = (leagueId: string) => (state: IStoreState): IStanding[] | undefined => {
-  if (state.standings.idsByLeague[leagueId]?.data === undefined) {
-    return undefined
-  }
-
-  const byId = state.standings.byId
-  const ids = state.standings.idsByLeague[leagueId].data!
-
-  return ids
-    .map(id => byId[id])
-    .filter(standing => standing !== undefined)
-}
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const selectStandingsByLeague = (leagueId: string) => createSelector<
+  IStoreState,
+  Record<string, IStanding>,
+  Record<string, IRequest<string[]>>,
+  IStanding[] | undefined
+>(
+  state => state.standings.byId,
+  state => state.standings.idsByLeague,
+  (byId, idsByLeague) => {
+    return idsByLeague[leagueId]?.data === undefined
+      ? undefined
+      : idsByLeague[leagueId].data!
+          .map(id => byId[id])
+          .filter(standing => standing !== undefined)
+  },
+)
 
 export default selectStandingsByLeague

@@ -1,17 +1,23 @@
+import { createSelector } from '@reduxjs/toolkit'
 import { IStoreState } from '../../../../../..'
 import { IMatch } from '../../../../../../../types/Match'
+import { IRequest } from '../../../../../../../types/Request'
 
-const selectMatches = (state: IStoreState): IMatch[] | undefined => {
-  if (state.matches.ids.data === undefined) {
-    return undefined
-  }
-
-  const byId = state.matches.byId
-  const ids = state.matches.ids.data
-
-  return ids
-    .map(id => byId[id])
-    .filter(match => match !== undefined)
-}
+const selectMatches = createSelector<
+  IStoreState,
+  Record<string, IMatch>,
+  IRequest<string[]>,
+  IMatch[] | undefined
+>(
+  state => state.matches.byId,
+  state => state.matches.ids,
+  (byId, ids) => {
+    return ids.data === undefined
+      ? undefined
+      : ids.data
+          .map(id => byId[id])
+          .filter(match => match !== undefined)
+  },
+)
 
 export default selectMatches
