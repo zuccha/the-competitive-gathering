@@ -29,13 +29,17 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
   {
     id: 'username1',
     label: 'Player 1',
-    renderData: data => <CellText value={data.username1} width='96px' />,
+    renderData: data => data.username1
+      ? <CellText value={data.username1} width='96px' />
+      : <CellText value='unknown' width='96px' className='italic' />,
     isSortable: true,
   },
   {
     id: 'username2',
     label: 'Player 2',
-    renderData: data => <CellText value={data.username2} width='96px' />,
+    renderData: data => data.username2
+      ? <CellText value={data.username2} width='96px' />
+      : <CellText value='unknown' width='96px' className='italic' />,
     isSortable: true,
   },
   {

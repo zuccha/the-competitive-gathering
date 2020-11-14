@@ -27,8 +27,8 @@ const fetchMatchesByLeague = createAsyncThunk<
     const { data } = await api.get(`/matches/${id}`)
     return data.map((matchApi: IMatchApi): IMatch => ({
       id: `${matchApi.id}`,
-      username1: matchApi.player1 || 'unknown',
-      username2: matchApi.player2 || 'unknown',
+      username1: matchApi.player1 || undefined,
+      username2: matchApi.player2 || undefined,
       results: matchApi.status === 'DONE'
         ? {
           gamesWonByUsername1: matchApi.games_won_by_player1 || 0,

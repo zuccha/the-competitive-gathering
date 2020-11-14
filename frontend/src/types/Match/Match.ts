@@ -1,7 +1,7 @@
 export type IMatch = {
   id: string
-  username1: string
-  username2: string
+  username1: string | undefined
+  username2: string | undefined
   results: {
     gamesWonByUsername1: number
     gamesWonByUsername2: number
