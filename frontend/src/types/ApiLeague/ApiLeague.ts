@@ -18,11 +18,15 @@ export type IApiLeague = {
 const ApiLeague = {
   toLeague: (apiLeague: IApiLeague): ILeague => ({
     id: `${apiLeague.id}`,
+    creator: apiLeague.creator || undefined,
+    players: apiLeague.players,
+    status: apiLeague.status,
     format: apiLeague.format,
     dateStart: apiLeague.date_start || undefined,
     dateEnd: apiLeague.date_end || undefined,
     playersMin: apiLeague.players_min,
     playersMax: apiLeague.players_max || undefined,
+    rounds: apiLeague.rounds,
   }),
 }
 

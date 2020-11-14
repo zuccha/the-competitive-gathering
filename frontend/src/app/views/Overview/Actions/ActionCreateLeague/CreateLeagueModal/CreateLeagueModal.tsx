@@ -1,7 +1,10 @@
 import { PayloadAction, unwrapResult } from '@reduxjs/toolkit'
 import { Formik, Form } from 'formik'
 import React, { useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import * as Yup from 'yup'
+import { selectUsername } from '../../../../../../store/slices/auth'
+import { IApiLeagueInput } from '../../../../../../types/ApiLeagueInput'
 import { ILeague } from '../../../../../../types/League'
 import when from '../../../../../../utils/when'
 import Button from '../../../../../components/Button'
@@ -29,7 +32,7 @@ const createLeagueValidationSchema = Yup.object().shape({
 })
 
 type ICreateLeagueModalProps = {
-  onCreateLeague: (league: ILeague) => Promise<PayloadAction<ILeague | unknown>>
+  onCreateLeague: (league: IApiLeagueInput) => Promise<PayloadAction<ILeague | unknown>>
   onCreateLeagueSuccess: (league: ILeague) => void
   onCreateLeagueFailure: () => void
   onCancel: () => void
@@ -41,15 +44,17 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
   onCreateLeagueFailure,
   onCancel,
 }) => {
+  const username = useSelector(selectUsername)
+
   const handleSubmit = useCallback((values, actions) => {
     actions.setSubmitting(true)
     onCreateLeague({
-      id: '',
+      creator: username,
+      players: [],
       format: values.format,
-      dateStart: undefined,
-      dateEnd: undefined,
-      playersMin: values.playersMin,
-      playersMax: values.playersMax,
+      players_min: values.playersMin,
+      players_max: values.playersMax,
+      rounds: 1,
     })
       .then(unwrapResult)
       .then(league => {
