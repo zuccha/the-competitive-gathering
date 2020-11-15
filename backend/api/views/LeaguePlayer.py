@@ -39,7 +39,7 @@ class LeaguePlayer(APIView):
     if league.players.filter(username=username).first() != None:
       return HttpResponseBadRequest('player is already enrolled')
 
-    if len(league.players.all()) + 1 > league.players_max:
+    if league.players_max != None and league.players.count() + 1 > league.players_max:
       return HttpResponseBadRequest('the maximum amount of players already enrolled in this league')
 
     league.players.add(player)
