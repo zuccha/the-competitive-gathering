@@ -5,6 +5,7 @@ import selectLeagueById from './selectors/selectLeagueById'
 import selectLeagues from './selectors/selectLeagues'
 import selectLeaguesStatus from './selectors/selectLeaguesStatus'
 import selectLeagueStatusById from './selectors/selectLeagueStatusById'
+import cancelLeagueById from './thunks/cancelLeagueById'
 import createLeague from './thunks/createLeague'
 import deleteLeagueById from './thunks/deleteLeagueById'
 import fetchLeagueById from './thunks/fetchLeagueById'
@@ -22,6 +23,7 @@ export {
   fetchLeagues,
   createLeague,
   deleteLeagueById,
+  cancelLeagueById,
   useLeagueById,
   useLeagues,
 }
