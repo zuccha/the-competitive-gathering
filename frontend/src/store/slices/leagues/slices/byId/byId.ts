@@ -5,6 +5,7 @@ import cancelLeagueById from '../../thunks/cancelLeagueById'
 import deleteLeagueById from '../../thunks/deleteLeagueById'
 import fetchLeagueById from '../../thunks/fetchLeagueById'
 import fetchLeagues from '../../thunks/fetchLeagues'
+import startLeagueById from '../../thunks/startLeagueById'
 
 const byId = createSlice({
   name: 'leagues/byId',
@@ -27,6 +28,9 @@ const byId = createSlice({
     })
     builder.addCase(deleteLeagueById.fulfilled, (state, action) => {
       delete state[action.meta.arg]
+    })
+    builder.addCase(startLeagueById.fulfilled, (state, action) => {
+      state[action.meta.arg] = Request.makeInitial()
     })
     builder.addCase(cancelLeagueById.fulfilled, (state, action) => {
       state[action.meta.arg] = Request.makeInitial()
