@@ -14,6 +14,7 @@ import toMatch from './utils/toMatch'
 import toMatchForTable from './utils/toMatchForTable'
 
 type ICustomContext = {
+  disabled?: boolean
   username: string | undefined
   openConfirmResultModal: (match: IMatch) => void
 }
@@ -66,7 +67,9 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
     renderData: (data, context) => {
       const match = toMatch(data)
       const handleClick = () => context.custom?.openConfirmResultModal(match)
-      const disabled = !context.custom?.username || !Match.canEdit(match, context.custom.username)
+      const disabled = context.custom?.disabled
+        || !context.custom?.username
+        || !Match.canEdit(match, context.custom.username)
       return <ButtonIcon onClick={handleClick} disabled={disabled}><BiEdit /></ButtonIcon>
     },
   },
@@ -75,11 +78,13 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
 
 type IMatchesTableEditableProps = {
   matches: IMatch[]
+  disabled?: boolean
   onRegisterMatchResult: (match: IMatch) => Promise<{ error?: SerializedError, payload: unknown }>
 }
 
 const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
   matches,
+  disabled,
   onRegisterMatchResult,
 }) => {
   const isMounted = useIsMounted()
@@ -104,9 +109,10 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
   }, [])
 
   const customContext = useMemo(() => ({
+    disabled,
     username,
     openConfirmResultModal,
-  }), [username])
+  }), [disabled, username, openConfirmResultModal])
 
   return (
     <>

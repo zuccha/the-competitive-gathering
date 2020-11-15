@@ -22,6 +22,18 @@ const Request = {
     status: 'success',
     data,
   }),
+  mergeStatuses: (...statuses: IRequestStatus[]): IRequestStatus => {
+    if (statuses.some(status => status === 'initial')) {
+      return 'initial'
+    }
+    if (statuses.some(status => status === 'loading')) {
+      return 'loading'
+    }
+    if (statuses.some(status => status === 'failure')) {
+      return 'failure'
+    }
+    return 'success'
+  },
 }
 
 export default Request
