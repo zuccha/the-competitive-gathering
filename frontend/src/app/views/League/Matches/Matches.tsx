@@ -16,7 +16,7 @@ const Matches: React.FC = () => {
 
   const dispatch: IStoreDispatch = useDispatch()
   const handleRegisterMatchResult = useCallback((match: IMatch) => {
-    return dispatch(registerMatchResult({ leagueId: id, match }))
+    return dispatch(registerMatchResult(match))
   }, [dispatch])
 
   return (

@@ -3,10 +3,11 @@ import { IMatchForTable } from '../../types'
 
 const toMatchForTable = (match: IMatch): IMatchForTable => ({
   id: match.id,
-  username1: match.username1,
-  username2: match.username2,
-  gamesWonByUsername1: match.results?.gamesWonByUsername1,
-  gamesWonByUsername2: match.results?.gamesWonByUsername2,
+  leagueId: match.leagueId,
+  player1: match.player1,
+  player2: match.player2,
+  gamesWonByPlayer1: match.results?.gamesWonByPlayer1,
+  gamesWonByPlayer2: match.results?.gamesWonByPlayer2,
   gamesDrew: match.results?.gamesDrew,
   actions: ['register-result'],
 })

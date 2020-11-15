@@ -18,22 +18,22 @@ const gameValidation = Yup
   .required('Required')
 
 const confirmResultsValidationSchema = Yup.object().shape({
-  gamesWonByUsername1: gameValidation,
-  gamesWonByUsername2: gameValidation,
+  gamesWonByPlayer1: gameValidation,
+  gamesWonByPlayer2: gameValidation,
   gamesDrew: gameValidation
     .test('total-games', 'Total number of games must be between 0 and 3', function() {
       if (!this.parent) {
         return true
       }
-      const { gamesWonByUsername1, gamesWonByUsername2, gamesDrew } = this.parent
+      const { gamesWonByPlayer1, gamesWonByPlayer2, gamesDrew } = this.parent
       if (
-        isNaN(parseInt(gamesWonByUsername1)) ||
-        isNaN(parseInt(gamesWonByUsername2)) ||
+        isNaN(parseInt(gamesWonByPlayer1)) ||
+        isNaN(parseInt(gamesWonByPlayer2)) ||
         isNaN(parseInt(gamesDrew))
       ) {
         return true
       }
-      const sum = gamesWonByUsername1 + gamesWonByUsername2 + gamesDrew
+      const sum = gamesWonByPlayer1 + gamesWonByPlayer2 + gamesDrew
       return 0 <= sum && sum <= 3
     }),
 })
@@ -56,12 +56,10 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
   const handleSubmit = useCallback((values, actions) => {
     actions.setSubmitting(true)
     onRegisterResult({
-      id: match.id,
-      username1: match.username1,
-      username2: match.username2,
+      ...match,
       results: {
-        gamesWonByUsername1: values.gamesWonByUsername1,
-        gamesWonByUsername2: values.gamesWonByUsername2,
+        gamesWonByPlayer1: values.gamesWonByPlayer1,
+        gamesWonByPlayer2: values.gamesWonByPlayer2,
         gamesDrew: values.gamesDrew,
       },
     })
@@ -86,8 +84,8 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
     <Modal onClickOutside={onCancel}>
       <Formik
         initialValues={{
-          gamesWonByUsername1: '',
-          gamesWonByUsername2: '',
+          gamesWonByPlayer1: '',
+          gamesWonByPlayer2: '',
           gamesDrew: '',
         }}
         onSubmit={handleSubmit}
@@ -98,8 +96,8 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
             <h3>Register match results</h3>
             <FormNumber
               className={styles['register-result-modal-input']}
-              name='gamesWonByUsername1'
-              label={`Games won by ${match.username1}`}
+              name='gamesWonByPlayer1'
+              label={`Games won by ${match.player1}`}
               placeholder='0'
               leaveSpaceForError
               min={0}
@@ -107,8 +105,8 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
             />
             <FormNumber
               className={styles['register-result-modal-input']}
-              name='gamesWonByUsername2'
-              label={`Games won by ${match.username2}`}
+              name='gamesWonByPlayer2'
+              label={`Games won by ${match.player2}`}
               placeholder='0'
               leaveSpaceForError
               min={0}

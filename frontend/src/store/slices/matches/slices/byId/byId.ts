@@ -3,6 +3,7 @@ import { IMatch } from '../../../../../types/Match'
 import Request, { IRequest } from '../../../../../types/Request'
 import fetchMatches from '../../thunks/fetchMatches'
 import fetchMatchesByLeague from '../../thunks/fetchMatchesByLeague'
+import registerMatchResult from '../../thunks/registerMatchResult'
 
 const byId = createSlice({
   name: 'matches/byId',
@@ -18,6 +19,9 @@ const byId = createSlice({
       action.payload.forEach(match => {
         state[match.id] = Request.makeSuccess(match)
       })
+    })
+    builder.addCase(registerMatchResult.fulfilled, (state, action) => {
+      state[action.meta.arg.id] = Request.makeInitial()
     })
   },
 })

@@ -28,32 +28,32 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
     isSortable: true,
   },
   {
-    id: 'username1',
+    id: 'player1',
     label: 'Player 1',
-    renderData: data => data.username1
-      ? <CellText value={data.username1} width='96px' />
+    renderData: data => data.player1
+      ? <CellText value={data.player1} width='96px' />
       : <CellText value='unknown' width='96px' className='italic' />,
     isSortable: true,
   },
   {
-    id: 'username2',
+    id: 'player2',
     label: 'Player 2',
-    renderData: data => data.username2
-      ? <CellText value={data.username2} width='96px' />
+    renderData: data => data.player2
+      ? <CellText value={data.player2} width='96px' />
       : <CellText value='unknown' width='96px' className='italic' />,
     isSortable: true,
   },
   {
-    id: 'gamesWonByUsername1',
+    id: 'gamesWonByPlayer1',
     label: 'P1 wins',
     tooltip: 'Games won by player 1',
-    renderData: data => <CellInt value={data.gamesWonByUsername1} />,
+    renderData: data => <CellInt value={data.gamesWonByPlayer1} />,
   },
   {
-    id: 'gamesWonByUsername2',
+    id: 'gamesWonByPlayer2',
     label: 'P2 wins',
     tooltip: 'Games won by player 2',
-    renderData: data => <CellInt value={data.gamesWonByUsername2} />,
+    renderData: data => <CellInt value={data.gamesWonByPlayer2} />,
   },
   {
     id: 'gamesDrew',

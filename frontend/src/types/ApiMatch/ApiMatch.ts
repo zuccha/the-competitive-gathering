@@ -15,12 +15,13 @@ export type IApiMatch = {
 const ApiMatch = {
   toMatch: (apiMatch: IApiMatch): IMatch => ({
     id: `${apiMatch.id}`,
-    username1: apiMatch.player1 || undefined,
-    username2: apiMatch.player2 || undefined,
+    leagueId: `${apiMatch.league}`,
+    player1: apiMatch.player1 || undefined,
+    player2: apiMatch.player2 || undefined,
     results: apiMatch.status === 'DONE'
       ? {
-        gamesWonByUsername1: apiMatch.games_won_by_player1 || 0,
-        gamesWonByUsername2: apiMatch.games_won_by_player2 || 0,
+        gamesWonByPlayer1: apiMatch.games_won_by_player1 || 0,
+        gamesWonByPlayer2: apiMatch.games_won_by_player2 || 0,
         gamesDrew: apiMatch.games_drew || 0,
       }
       : undefined,
