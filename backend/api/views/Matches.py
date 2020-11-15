@@ -1,19 +1,12 @@
-from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponseNotFound, JsonResponse
+from django.http import JsonResponse
 from rest_framework.views import APIView
-from ..models.Match import Match
+from ..models.Match import Match as MatchModel
 from ..utils.parse_id import parse_id
 
 class Matches(APIView):
-  def get(self, request, id):
-    if id != '':
-      match = Match.objects.filter(id=id).first()
-      if match == None:
-        return HttpResponseNotFound()
-      return JsonResponse(match.to_json(), safe=False)
-
-    matches = Match.objects
+  def get(self, request):
+    matches = MatchModel.objects
 
     league_id = parse_id(request.GET.get('league_id', None))
     if league_id != None:
@@ -25,4 +18,4 @@ class Matches(APIView):
 
     matches = matches.all()
 
-    return JsonResponse(list(map(Match.to_json, matches)), safe=False)
+    return JsonResponse(list(map(MatchModel.to_json, matches)), safe=False)
