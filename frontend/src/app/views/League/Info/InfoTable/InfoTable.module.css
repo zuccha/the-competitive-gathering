@@ -1,0 +1,13 @@
+.info-table {
+  display: flex;
+}
+
+.info-table-column {
+  margin-right: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-table-column:last-child {
+  margin-right: 0;
+}
