@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ILeague } from '../../../../../types/League'
 import Request, { IRequest } from '../../../../../types/Request'
+import deleteLeagueById from '../../thunks/deleteLeagueById'
 import fetchLeagueById from '../../thunks/fetchLeagueById'
 import fetchLeagues from '../../thunks/fetchLeagues'
 
@@ -22,6 +23,9 @@ const byId = createSlice({
       action.payload.forEach(league => {
         state[league.id] = Request.makeSuccess(league)
       })
+    })
+    builder.addCase(deleteLeagueById.fulfilled, (state, action) => {
+      delete state[action.meta.arg]
     })
   },
 })
