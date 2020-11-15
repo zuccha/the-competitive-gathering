@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import Actions from './Actions'
 import Info from './Info'
 import Matches from './Matches'
 import Standings from './Standings'
@@ -9,6 +10,7 @@ const League: React.FC = () => {
   return (
     <div>
       <h1>{`League #${id}`}</h1>
+      <Actions />
       <Info />
       <Standings />
       <Matches />
