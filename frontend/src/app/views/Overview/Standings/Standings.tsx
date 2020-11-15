@@ -1,14 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { fetchStandings, selectStandings, selectStandingsStatus } from '../../../../store/slices/standings'
+import { useStandings } from '../../../../store/slices/standings'
 import RequestSwitch from '../../../components/RequestSwitch'
 import StandingsTable from '../../../components/StandingsTable'
-import usePrefetch from '../../../hooks/usePrefetch'
 
 const Standings: React.FC = () => {
-  const standings = useSelector(selectStandings)
-  const standingsStatus = useSelector(selectStandingsStatus)
-  usePrefetch(standingsStatus, fetchStandings)
+  const [standings, standingsStatus] = useStandings()
 
   return (
     <div>

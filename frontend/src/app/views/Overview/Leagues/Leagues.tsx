@@ -1,15 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectLeagues, selectLeaguesStatus } from '../../../../store/slices/leagues'
-import fetchLeagues from '../../../../store/slices/leagues/thunks/fetchLeagues'
+import { useLeagues } from '../../../../store/slices/leagues'
 import LeaguesTable from '../../../components/LeaguesTable'
 import RequestSwitch from '../../../components/RequestSwitch'
-import usePrefetch from '../../../hooks/usePrefetch'
 
 const Leagues: React.FC = () => {
-  const leagues = useSelector(selectLeagues)
-  const leaguesStatus = useSelector(selectLeaguesStatus)
-  usePrefetch(leaguesStatus, fetchLeagues)
+  const [leagues, leaguesStatus] = useLeagues()
 
   return (
     <div>

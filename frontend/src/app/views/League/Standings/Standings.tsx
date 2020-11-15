@@ -1,24 +1,12 @@
-import React, { useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import {
-  fetchStandingsByLeague,
-  selectStandingsByLeague,
-  selectStandingsStatusByLeague,
-} from '../../../../store/slices/standings'
+import { useStandingsByLeague } from '../../../../store/slices/standings'
 import RequestSwitch from '../../../components/RequestSwitch'
 import StandingsTable from '../../../components/StandingsTable'
-import usePrefetch from '../../../hooks/usePrefetch'
 
 const Standings: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const fetchStandings = useCallback(() => fetchStandingsByLeague(id), [id])
-
-  const selectStandings = useCallback(selectStandingsByLeague(id), [id])
-  const selectStandingsStatus = useCallback(selectStandingsStatusByLeague(id), [id])
-  const standings = useSelector(selectStandings)
-  const standingsStatus = useSelector(selectStandingsStatus)
-  usePrefetch(standingsStatus, fetchStandings)
+  const [standings, standingsStatus] = useStandingsByLeague(id)
 
   return (
     <div>

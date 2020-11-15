@@ -5,6 +5,8 @@ import fetchStandings from './thunks/fetchStandings'
 import fetchStandingsByLeague from './thunks/fetchStandingsByLeague'
 import selectStandingsStatus from './selectors/selectStandingsStatus/selectStandingsStatus'
 import selectStandingsStatusByLeague from './selectors/selectStandingsStatusByLeague'
+import useStandings from './hooks/useStandings'
+import useStandingsByLeague from './hooks/useStandingsByLeague'
 
 const standingsReducer = standings.reducer
 
@@ -16,4 +18,6 @@ export {
   selectStandingsStatusByLeague,
   fetchStandings,
   fetchStandingsByLeague,
+  useStandings,
+  useStandingsByLeague,
 }

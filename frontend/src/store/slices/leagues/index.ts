@@ -1,3 +1,5 @@
+import useLeagueById from './hooks/useLeagueById'
+import useLeagues from './hooks/useLeagues'
 import leagues from './leagues'
 import selectLeagueById from './selectors/selectLeagueById'
 import selectLeagues from './selectors/selectLeagues'
@@ -18,4 +20,6 @@ export {
   fetchLeagueById,
   fetchLeagues,
   createLeague,
+  useLeagueById,
+  useLeagues,
 }

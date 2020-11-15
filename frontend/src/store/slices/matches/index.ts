@@ -1,3 +1,5 @@
+import useMatches from './hooks/useMatches'
+import useMatchesByLeague from './hooks/useMatchesByLeague'
 import matches from './matches'
 import selectMatches from './selectors/selectMatches'
 import selectMatchesByLeague from './selectors/selectMatchesByLeague'
@@ -18,4 +20,6 @@ export {
   fetchMatches,
   fetchMatchesByLeague,
   registerMatchResult,
+  useMatches,
+  useMatchesByLeague,
 }
