@@ -1,17 +1,28 @@
 import { PayloadAction, unwrapResult } from '@reduxjs/toolkit'
 import { Formik, Form } from 'formik'
 import React, { useCallback } from 'react'
-import { useSelector } from 'react-redux'
 import * as Yup from 'yup'
-import { selectUsername } from '../../../../../../store/slices/auth'
 import { IApiLeagueInput } from '../../../../../../types/ApiLeagueInput'
 import { ILeague } from '../../../../../../types/League'
 import when from '../../../../../../utils/when'
 import Button from '../../../../../components/Button'
 import FormNumber from '../../../../../components/FormNumber'
-import FormText from '../../../../../components/FormText'
+import FormSelect from '../../../../../components/FormSelect'
 import Modal from '../../../../../components/Modal'
 import styles from './CreateLeagueModal.module.css'
+
+const formatOptions = [
+  { value: 'STANDARD', label: 'Standard' },
+  { value: 'PIONEER', label: 'Pioneer' },
+  { value: 'MODERN', label: 'Modern' },
+  { value: 'LEGACY', label: 'Legacy' },
+  { value: 'VINTAGE', label: 'Vintage' },
+  { value: 'COMMANDER', label: 'Commander' },
+  { value: 'PAUPER', label: 'Pauper' },
+  { value: 'DRAFT', label: 'Draft' },
+  { value: 'SEALED', label: 'Sealed' },
+  { value: 'OTHER', label: 'Other' },
+]
 
 const areValuesValid = function(values?: { playersMin?: number, playersMax?: number }) {
   return !values
@@ -21,6 +32,7 @@ const areValuesValid = function(values?: { playersMin?: number, playersMax?: num
 }
 
 const createLeagueValidationSchema = Yup.object().shape({
+  format: Yup.string().required('Required'),
   playersMin: Yup.number()
     .min(2)
     .required('Required')
@@ -28,10 +40,11 @@ const createLeagueValidationSchema = Yup.object().shape({
   playersMax: Yup.number()
     .min(2)
     .test('max-smaller-or-equal-than-min', 'max >= min', function() { return areValuesValid(this.parent) }),
-  format: Yup.string().required('Required'),
+  rounds: Yup.number().min(1).required('Required'),
 })
 
 type ICreateLeagueModalProps = {
+  username: string,
   onCreateLeague: (league: IApiLeagueInput) => Promise<PayloadAction<ILeague | unknown>>
   onCreateLeagueSuccess: (league: ILeague) => void
   onCreateLeagueFailure: () => void
@@ -39,22 +52,21 @@ type ICreateLeagueModalProps = {
 }
 
 const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
+  username,
   onCreateLeague,
   onCreateLeagueSuccess,
   onCreateLeagueFailure,
   onCancel,
 }) => {
-  const username = useSelector(selectUsername)
-
   const handleSubmit = useCallback((values, actions) => {
     actions.setSubmitting(true)
     onCreateLeague({
       creator: username,
-      players: [],
+      players: [username],
       format: values.format,
       players_min: values.playersMin,
-      players_max: values.playersMax,
-      rounds: 1,
+      players_max: values.playersMax || undefined,
+      rounds: values.rounds,
     })
       .then(unwrapResult)
       .then(league => {
@@ -77,16 +89,25 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
     <Modal onClickOutside={onCancel}>
       <Formik
         initialValues={{
-          format: '',
+          format: formatOptions[0].value,
           playersMin: 2,
-          playersMax: undefined,
+          playersMax: '',
+          rounds: 1,
         }}
         onSubmit={handleSubmit}
         validationSchema={createLeagueValidationSchema}
       >
-        {({ dirty, isSubmitting, isValid }) => (
+        {({ isSubmitting, isValid }) => (
           <Form className={styles['create-league-modal']}>
             <h3>Create new league</h3>
+            <FormNumber
+              className={styles['create-league-modal-input']}
+              name='rounds'
+              label='Rounds'
+              placeholder='1'
+              leaveSpaceForError
+              min={1}
+            />
             <div className={styles['create-league-modal-players']}>
               <FormNumber
                 name='playersMin'
@@ -103,18 +124,19 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
                 min={2}
               />
             </div>
-            <FormText
+            <FormSelect
               className={styles['create-league-modal-input']}
               name='format'
               label='Format'
               placeholder='Modern, Legacy, ...'
+              options={formatOptions}
               leaveSpaceForError
             />
             <div className={styles['create-league-modal-buttons']}>
               <Button disabled={isSubmitting} onClick={onCancel}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!dirty || !isValid || isSubmitting}>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
                 {isSubmitting ? 'Create...' : 'Create'}
               </Button>
             </div>

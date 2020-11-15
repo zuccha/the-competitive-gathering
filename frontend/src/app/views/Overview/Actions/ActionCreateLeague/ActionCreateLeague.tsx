@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { IStoreDispatch } from '../../../../../store'
+import { selectUsername } from '../../../../../store/slices/auth'
 import { createLeague } from '../../../../../store/slices/leagues'
 import { IApiLeagueInput } from '../../../../../types/ApiLeagueInput'
 import { ILeague } from '../../../../../types/League'
@@ -23,6 +24,12 @@ const ActionCreateLeague: React.FC = () => {
     history.push(`/leagues/${league.id}`)
   }, [history])
 
+  const username = useSelector(selectUsername)
+
+  if (!username) {
+    return null
+  }
+
   return (
     <>
       <Button onClick={openModal}>
@@ -30,6 +37,7 @@ const ActionCreateLeague: React.FC = () => {
       </Button>
       {isModalOpen && (
         <CreateLeagueModal
+          username={username}
           onCreateLeague={handleCreateLeague}
           onCreateLeagueSuccess={navigateToNewLeague}
           onCreateLeagueFailure={doNothing}
