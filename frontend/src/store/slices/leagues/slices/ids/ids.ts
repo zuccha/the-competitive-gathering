@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Request from '../../../../../types/Request'
 import createLeague from '../../thunks/createLeague'
+import deleteLeagueById from '../../thunks/deleteLeagueById'
 import fetchLeagues from '../../thunks/fetchLeagues'
 
 const ids = createSlice({
@@ -18,6 +19,9 @@ const ids = createSlice({
       return Request.makeFailure()
     })
     builder.addCase(createLeague.fulfilled, () => {
+      return Request.makeInitial()
+    })
+    builder.addCase(deleteLeagueById.fulfilled, () => {
       return Request.makeInitial()
     })
   },

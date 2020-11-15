@@ -1,4 +1,9 @@
-import React, { useCallback } from 'react'
+import { unwrapResult } from '@reduxjs/toolkit'
+import React, { useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { IStoreDispatch } from '../../../../../store'
+import { deleteLeagueById } from '../../../../../store/slices/leagues'
 import { ILeague } from '../../../../../types/League'
 import Button from '../../../../components/Button'
 
@@ -11,9 +16,17 @@ const ActionDeleteLeague: React.FC<IActionDeleteLeagueProps> = ({
   league,
   username,
 }) => {
+  const history = useHistory()
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const dispatch: IStoreDispatch = useDispatch()
   const deleteLeague = useCallback(() => {
-    // TODO.
-  }, [])
+    setIsDeleting(true)
+    dispatch(deleteLeagueById(league.id))
+      .then(unwrapResult)
+      .then(() => { history.push('/') })
+      .catch(() => { setIsDeleting(false) })
+  }, [history])
 
   if (league.creator !== username) {
     return null
@@ -24,8 +37,8 @@ const ActionDeleteLeague: React.FC<IActionDeleteLeagueProps> = ({
   }
 
   return (
-    <Button onClick={deleteLeague}>
-      Delete
+    <Button onClick={deleteLeague} disabled={isDeleting}>
+      {isDeleting ? 'Delete...' : 'Delete'}
     </Button>
   )
 }
