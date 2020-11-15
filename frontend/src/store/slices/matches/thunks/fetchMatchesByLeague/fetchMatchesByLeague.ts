@@ -11,7 +11,7 @@ const fetchMatchesByLeague = createAsyncThunk<
   string,
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
-  'matches/idsByLeague/fetchMatchesByLeague',
+  'matches/fetchMatchesByLeague',
   withErrorHttp(async leagueId => {
     const { data } = await api.get('/matches', {
       params: { league_id: leagueId },

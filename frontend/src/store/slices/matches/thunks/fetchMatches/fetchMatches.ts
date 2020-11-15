@@ -11,7 +11,7 @@ const fetchMatches = createAsyncThunk<
   void,
   { state: IStoreState, dispatch: IStoreDispatch }
 >(
-  'matches/ids/fetchMatches',
+  'matches/fetchMatches',
   withErrorHttp(async () => {
     const { data } = await api.get('/matches')
     return data.map(ApiMatch.toMatch)
