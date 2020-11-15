@@ -6,6 +6,8 @@ import { IStoreDispatch } from '../../../../../store'
 import { deleteLeagueById } from '../../../../../store/slices/leagues'
 import { ILeague } from '../../../../../types/League'
 import Button from '../../../../components/Button'
+import ModalConfirmation from '../../../../components/ModalConfirmation'
+import useModal from '../../../../hooks/useModal'
 
 type IActionDeleteLeagueProps = {
   league: ILeague
@@ -18,6 +20,7 @@ const ActionDeleteLeague: React.FC<IActionDeleteLeagueProps> = ({
 }) => {
   const history = useHistory()
   const [isDeleting, setIsDeleting] = useState(false)
+  const [isModalOpen, openModal, closeModal] = useModal()
 
   const dispatch: IStoreDispatch = useDispatch()
   const deleteLeague = useCallback(() => {
@@ -37,9 +40,18 @@ const ActionDeleteLeague: React.FC<IActionDeleteLeagueProps> = ({
   }
 
   return (
-    <Button onClick={deleteLeague} disabled={isDeleting}>
-      {isDeleting ? 'Delete...' : 'Delete'}
-    </Button>
+    <>
+      <Button onClick={openModal} disabled={isDeleting}>
+        {isDeleting ? 'Delete...' : 'Delete'}
+      </Button>
+      {isModalOpen && (
+        <ModalConfirmation
+          message='Are you sure you want to delete this league?'
+          onCancel={closeModal}
+          onConfirm={deleteLeague}
+        />
+      )}
+    </>
   )
 }
 

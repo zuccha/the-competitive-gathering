@@ -1,0 +1,15 @@
+.modal-confirmation {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-confirmation-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.2em;
+}
+
+.modal-confirmation-buttons button:first-child {
+  margin-right: 1em;
+}
