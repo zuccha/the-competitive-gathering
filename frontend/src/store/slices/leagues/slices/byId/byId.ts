@@ -3,8 +3,10 @@ import { ILeague } from '../../../../../types/League'
 import Request, { IRequest } from '../../../../../types/Request'
 import cancelLeagueById from '../../thunks/cancelLeagueById'
 import deleteLeagueById from '../../thunks/deleteLeagueById'
+import enrollLeagueByIdAndUsername from '../../thunks/enrollLeagueByIdAndUsername'
 import fetchLeagueById from '../../thunks/fetchLeagueById'
 import fetchLeagues from '../../thunks/fetchLeagues'
+import leaveLeagueByIdAndUsername from '../../thunks/leaveLeagueByIdAndUsername'
 import startLeagueById from '../../thunks/startLeagueById'
 
 const byId = createSlice({
@@ -28,6 +30,12 @@ const byId = createSlice({
     })
     builder.addCase(deleteLeagueById.fulfilled, (state, action) => {
       delete state[action.meta.arg]
+    })
+    builder.addCase(enrollLeagueByIdAndUsername.fulfilled, (state, action) => {
+      state[action.meta.arg.id] = Request.makeInitial()
+    })
+    builder.addCase(leaveLeagueByIdAndUsername.fulfilled, (state, action) => {
+      state[action.meta.arg.id] = Request.makeInitial()
     })
     builder.addCase(startLeagueById.fulfilled, (state, action) => {
       state[action.meta.arg] = Request.makeInitial()

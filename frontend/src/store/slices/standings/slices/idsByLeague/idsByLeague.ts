@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Request, { IRequest } from '../../../../../types/Request'
+import { enrollLeagueByIdAndUsername, leaveLeagueByIdAndUsername } from '../../../leagues'
 import { registerMatchResult } from '../../../matches'
 import fetchStandingsByLeague from '../../thunks/fetchStandingsByLeague'
 
@@ -19,6 +20,12 @@ const idsByLeague = createSlice({
     })
     builder.addCase(registerMatchResult.fulfilled, (state, action) => {
       state[action.meta.arg.leagueId] = Request.makeInitial()
+    })
+    builder.addCase(enrollLeagueByIdAndUsername.fulfilled, (state, action) => {
+      state[action.meta.arg.id] = Request.makeInitial()
+    })
+    builder.addCase(leaveLeagueByIdAndUsername.fulfilled, (state, action) => {
+      state[action.meta.arg.id] = Request.makeInitial()
     })
   },
 })

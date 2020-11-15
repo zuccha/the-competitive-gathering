@@ -6,7 +6,8 @@ import { useLeagueById } from '../../../../store/slices/leagues'
 import RequestSwitch from '../../../components/RequestSwitch'
 import ActionCancelLeague from './ActionCancelLeague'
 import ActionDeleteLeague from './ActionDeleteLeague'
-import ActionEnroll from './ActionEnroll'
+import ActionEnrollLeague from './ActionEnrollLeague'
+import ActionLeaveLeague from './ActionLeaveLeague'
 import styles from './Actions.module.css'
 import ActionStartLeague from './ActionStartLeague'
 
@@ -24,7 +25,8 @@ const Actions: React.FC = () => {
       status={leagueStatus}
       renderSuccess={() => (
         <div className={styles['actions']}>
-          <ActionEnroll league={league!} username={username} />
+          <ActionEnrollLeague league={league!} username={username} />
+          <ActionLeaveLeague league={league!} username={username} />
           <ActionStartLeague league={league!} username={username} />
           <ActionDeleteLeague league={league!} username={username} />
           <ActionCancelLeague league={league!} username={username} />

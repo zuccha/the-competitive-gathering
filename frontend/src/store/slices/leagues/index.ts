@@ -8,8 +8,10 @@ import selectLeagueStatusById from './selectors/selectLeagueStatusById'
 import cancelLeagueById from './thunks/cancelLeagueById'
 import createLeague from './thunks/createLeague'
 import deleteLeagueById from './thunks/deleteLeagueById'
+import enrollLeagueByIdAndUsername from './thunks/enrollLeagueByIdAndUsername'
 import fetchLeagueById from './thunks/fetchLeagueById'
 import fetchLeagues from './thunks/fetchLeagues'
+import leaveLeagueByIdAndUsername from './thunks/leaveLeagueByIdAndUsername'
 import startLeagueById from './thunks/startLeagueById'
 
 const leaguesReducer = leagues.reducer
@@ -23,6 +25,8 @@ export {
   fetchLeagueById,
   fetchLeagues,
   createLeague,
+  enrollLeagueByIdAndUsername,
+  leaveLeagueByIdAndUsername,
   deleteLeagueById,
   startLeagueById,
   cancelLeagueById,
