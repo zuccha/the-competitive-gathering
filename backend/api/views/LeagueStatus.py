@@ -14,6 +14,7 @@ def generate_matches(league):
         match.league = league
         match.player1 = player1
         match.player2 = player2
+        match.round = round
         match.save()
 
 def is_league_ready(league):

@@ -16,6 +16,7 @@ class Match(models.Model):
   player1 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="player1")
   player2 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="player2")
   status = models.CharField(max_length=16, choices=Status.choices, default=Status.PENDING)
+  round = models.PositiveIntegerField(validators=[MinValueValidator(1)])
   games_won_by_player1 = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(2)], blank=True, null=True)
   games_won_by_player2 = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(2)], blank=True, null=True)
   games_drew = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(3)], blank=True, null=True)
@@ -82,6 +83,7 @@ class Match(models.Model):
     return {
       "id": self.id,
       "league": self.league.id,
+      "round": self.round,
       "player1": self.player1.username,
       "player2": self.player2.username,
       "status": self.status,
