@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { ILeague } from '../../../types/League'
 import LeagueFormat from '../../../types/LeagueFormat'
+import LeagueStatus from '../../../types/LeagueStatus'
 import Table, { CellInt, CellText, IColumn } from '../Table'
 
 type ILeaguesTableProps = {
@@ -27,6 +28,12 @@ const columns: IColumn<ILeague>[] = [
     id: 'format',
     label: 'Format',
     renderData: data => <CellText value={LeagueFormat.toString(data.format)} className='capitalize' />,
+    isSortable: true,
+  },
+  {
+    id: 'status',
+    label: 'Status',
+    renderData: data => <CellText value={LeagueStatus.toString(data.status)} className='capitalize' />,
     isSortable: true,
   },
   {
