@@ -38,7 +38,7 @@ const byId = createSlice({
       state[action.meta.arg.id] = Request.makeSuccess(action.payload)
     })
     builder.addCase(startLeagueById.fulfilled, (state, action) => {
-      state[action.meta.arg] = Request.makeInitial()
+      state[action.meta.arg] = Request.makeSuccess(action.payload)
     })
     builder.addCase(cancelLeagueById.fulfilled, (state, action) => {
       state[action.meta.arg] = Request.makeInitial()
