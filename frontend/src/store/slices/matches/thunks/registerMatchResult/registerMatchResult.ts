@@ -13,9 +13,9 @@ const registerMatchResult = createAsyncThunk<
   withErrorHttp(async match => {
     await api.put(`/matches/${match.id}`, {
       status: 'DONE',
-      games_won_by_player1: match.results?.gamesWonByPlayer1,
-      games_won_by_player2: match.results?.gamesWonByPlayer2,
-      games_drew: match.results?.gamesDrew,
+      games_won_by_player1: match.gamesWonByPlayer1,
+      games_won_by_player2: match.gamesWonByPlayer2,
+      games_drew: match.gamesDrew,
     })
   }),
 )

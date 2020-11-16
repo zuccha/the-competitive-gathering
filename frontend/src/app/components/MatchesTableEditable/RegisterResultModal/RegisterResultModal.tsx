@@ -57,11 +57,10 @@ const RegisterResultModal: React.FC<IRegisterResultModalProps> = ({
     actions.setSubmitting(true)
     onRegisterResult({
       ...match,
-      results: {
-        gamesWonByPlayer1: values.gamesWonByPlayer1,
-        gamesWonByPlayer2: values.gamesWonByPlayer2,
-        gamesDrew: values.gamesDrew,
-      },
+      status: 'DONE',
+      gamesWonByPlayer1: values.gamesWonByPlayer1,
+      gamesWonByPlayer2: values.gamesWonByPlayer2,
+      gamesDrew: values.gamesDrew,
     })
       .then(unwrapResult)
       .then(() => {

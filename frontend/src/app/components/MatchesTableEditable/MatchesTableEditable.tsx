@@ -4,6 +4,7 @@ import { BiEdit } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { selectUsername } from '../../../store/slices/auth'
 import Match, { IMatch } from '../../../types/Match'
+import MatchStatus from '../../../types/MatchStatus'
 import doNothing from '../../../utils/doNothing'
 import useIsMounted from '../../hooks/useIsMounted'
 import ButtonIcon from '../ButtonIcon'
@@ -22,9 +23,9 @@ type ICustomContext = {
 const columns: IColumn<IMatchForTable, ICustomContext>[] = [
   /* eslint-disable react/display-name */
   {
-    id: 'id',
-    label: 'Id',
-    renderData: data => <CellText value={data.id} width='64px' />,
+    id: 'round',
+    label: 'Round',
+    renderData: data => <CellInt value={data.round} width='64px' />,
     isSortable: true,
   },
   {
@@ -41,6 +42,13 @@ const columns: IColumn<IMatchForTable, ICustomContext>[] = [
     renderData: data => data.player2
       ? <CellText value={data.player2} width='96px' />
       : <CellText value='unknown' width='96px' className='italic' />,
+    isSortable: true,
+  },
+  {
+    id: 'status',
+    label: 'Status',
+    tooltip: 'Status of the game: "ongoing" means the match has yet to be played, "done" means the match has already been played',
+    renderData: data => <CellText value={MatchStatus.toString(data.status)} className='capitalize' width="100px" />,
     isSortable: true,
   },
   {
