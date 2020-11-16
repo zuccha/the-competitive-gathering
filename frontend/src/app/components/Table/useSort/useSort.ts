@@ -45,18 +45,22 @@ const useSort = <
     column: defaultSortingColumn || sortableColumns[0],
   })
 
+  const sort = useCallback((row1: IRow<T>, row2: IRow<T>): number => {
+    const rowLeft = sortingBy.order === 'ascending' ? row1 : row2
+    const rowRight = sortingBy.order === 'ascending' ? row2 : row1
+    return sortingBy.column!.sort
+      ? sortingBy.column!.sort(rowLeft, rowRight)
+      : when([
+        [rowLeft.data[sortingBy.column!.id] < rowRight.data[sortingBy.column!.id], () => -1],
+        [rowLeft.data[sortingBy.column!.id] > rowRight.data[sortingBy.column!.id], () => 1],
+      ], () => 0)
+  }, [sortingBy])
+
   const sortedRows = useMemo(() => {
     return !sortingBy.column
       ? rows
-      : rows.slice().sort((row1, row2) => {
-          const rowLeft = sortingBy.order === 'ascending' ? row1 : row2
-          const rowRight = sortingBy.order === 'ascending' ? row2 : row1
-          return when([
-            [rowLeft.data[sortingBy.column!.id] < rowRight.data[sortingBy.column!.id], () => -1],
-            [rowLeft.data[sortingBy.column!.id] > rowRight.data[sortingBy.column!.id], () => 1],
-          ], () => 0)
-        })
-  }, [sortingBy, rows])
+      : rows.slice().sort(sort)
+  }, [sortingBy, rows, sort])
 
   const sortByColumn = useCallback((column: IColumn<T, C>) => {
     setSortBy(sortingBy.column?.id === column.id

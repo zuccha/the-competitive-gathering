@@ -10,6 +10,7 @@ export type IColumn<
   isSortable?: boolean
   renderHeader?: (column: IColumn<T, C>, context: IContext<T, C>) => React.ReactElement | null
   renderData?: (data: T, context: IContext<T, C>) => React.ReactElement | null
+  sort?: (rowLeft: IRow<T>, rowRight: IRow<T>) => number
 }
 
 export type IRow<

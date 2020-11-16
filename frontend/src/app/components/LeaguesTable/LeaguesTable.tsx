@@ -13,8 +13,15 @@ const columns: IColumn<ILeague>[] = [
   {
     id: 'id',
     label: 'Id',
-    renderData: data => <CellText value={data.id} width='56px' />,
+    renderData: data => <CellInt value={parseInt(data.id)} width='56px' />,
     isSortable: true,
+    sort: (rowLeft, rowRight) => {
+      const idStrLeft = parseInt(rowLeft.data.id)
+      const idStrRight = parseInt(rowRight.data.id)
+      if (idStrLeft < idStrRight) return -1
+      if (idStrLeft > idStrRight) return 1
+      return 0
+    },
   },
   {
     id: 'format',
