@@ -32,20 +32,17 @@ class Standings(APIView):
     standings = []
     for user in users:
       userMatches = matches.filter(Q(player1=user) | Q(player2=user)).all()
-      standing = Standing(0, 0, 0, 0, 0, 0, 0, 0, 0)
+      standing = Standing(user.username, 0, 0, 0, 0, 0, 0, 0, 0, 0)
       for userMatch in userMatches:
-        standing.add(userMatch.get_standing_for(user.username))
-      standings.append({
-        "username": user.username,
-        "points": standing.points,
-        "matches_played": standing.matches_played,
-        "matches_won": standing.matches_won,
-        "matches_lost": standing.matches_lost,
-        "matches_drew": standing.matches_drew,
-        "games_played": standing.games_played,
-        "games_won": standing.games_won,
-        "games_lost": standing.games_lost,
-        "games_drew": standing.games_drew,
-      })
+        standing.add(userMatch.get_standing_for_player(user.username))
+      standings.append(standing)
 
-    return JsonResponse(standings, safe=False)
+    standings.sort(reverse=True)
+    standings[0].rank = 1
+    for i in range(1, len(standings)):
+      if standings[i - 1] == standings[i]:
+        standings[i].rank = standings[i - 1].rank
+      else:
+        standings[i].rank = i + 1
+
+    return JsonResponse(list(map(Standing.to_json, standings)), safe=False)

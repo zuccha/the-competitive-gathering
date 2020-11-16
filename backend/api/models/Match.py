@@ -38,9 +38,10 @@ class Match(models.Model):
       return 0
     return 1
 
-  def _get_standing_for_player1(self):
+  def _get_standing_for_player1(self, username):
     points = self._count_points_for_player1()
     return Standing(
+      username,
       points,
       1,
       1 if points == 3 else 0,
@@ -52,9 +53,10 @@ class Match(models.Model):
       self.games_drew,
     )
 
-  def _get_standing_for_player2(self):
+  def _get_standing_for_player2(self, username):
     points = self._count_points_for_player2()
     return Standing(
+      username,
       points,
       1,
       1 if points == 3 else 0,
@@ -66,14 +68,14 @@ class Match(models.Model):
       self.games_drew,
     )
 
-  def get_standing_for(self, username):
+  def get_standing_for_player(self, username):
     if self.status != 'DONE':
-      return Standing(0, 0, 0, 0, 0, 0, 0, 0, 0)
+      return Standing(username, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     if self.player1 and self.player1.username == username:
-      return self._get_standing_for_player1()
+      return self._get_standing_for_player1(username)
     if self.player2 and self.player2.username == username:
-      return self._get_standing_for_player2()
-    return Standing(0, 0, 0, 0, 0, 0, 0, 0, 0)
+      return self._get_standing_for_player2(username)
+    return Standing(username, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 
   def __str__(self):
