@@ -9,6 +9,12 @@ type IStandingsTableProps = {
 const columns: IColumn<IStanding>[] = [
   /* eslint-disable react/display-name */
   {
+    id: 'rank',
+    label: 'Rank',
+    renderData: data => <CellInt value={data.rank} />,
+    isSortable: true,
+  },
+  {
     id: 'username',
     label: 'Player',
     renderData: data => <CellText value={data.username} />,

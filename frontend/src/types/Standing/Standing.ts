@@ -9,4 +9,5 @@ export type IStanding = {
   gamesWon: number
   gamesLost: number
   gamesDrew: number
+  rank: number
 }

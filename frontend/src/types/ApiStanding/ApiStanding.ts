@@ -11,6 +11,7 @@ export type IApiStanding = {
   games_won: number
   games_lost: number
   games_drew: number
+  rank: number
 }
 
 const ApiStanding = {
@@ -25,6 +26,7 @@ const ApiStanding = {
     gamesWon: apiStanding.games_won,
     gamesLost: apiStanding.games_lost,
     gamesDrew: apiStanding.games_drew,
+    rank: apiStanding.rank,
   }),
 }
 
