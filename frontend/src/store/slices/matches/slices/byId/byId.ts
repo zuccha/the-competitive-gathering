@@ -21,7 +21,7 @@ const byId = createSlice({
       })
     })
     builder.addCase(registerMatchResult.fulfilled, (state, action) => {
-      state[action.meta.arg.id] = Request.makeInitial()
+      state[action.meta.arg.id] = Request.makeSuccess(action.payload)
     })
   },
 })

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import Request from '../../../../../types/Request'
 import { startLeagueById } from '../../../leagues'
 import fetchMatches from '../../thunks/fetchMatches'
-import registerMatchResult from '../../thunks/registerMatchResult'
 
 const ids = createSlice({
   name: 'matches/ids',
@@ -17,9 +16,6 @@ const ids = createSlice({
     })
     builder.addCase(fetchMatches.rejected, () => {
       return Request.makeFailure()
-    })
-    builder.addCase(registerMatchResult.fulfilled, () => {
-      return Request.makeInitial()
     })
     builder.addCase(startLeagueById.fulfilled, () => {
       return Request.makeInitial()

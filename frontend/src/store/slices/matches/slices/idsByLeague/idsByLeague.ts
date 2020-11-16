@@ -18,9 +18,6 @@ const idsByLeague = createSlice({
     builder.addCase(fetchMatchesByLeague.rejected, (state, action) => {
       state[action.meta.arg] = Request.makeFailure()
     })
-    builder.addCase(registerMatchResult.fulfilled, (state, action) => {
-      state[action.meta.arg.leagueId] = Request.makeInitial()
-    })
     builder.addCase(startLeagueById.fulfilled, (state, action) => {
       state[action.meta.arg] = Request.makeInitial()
     })
