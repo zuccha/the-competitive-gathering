@@ -32,10 +32,10 @@ const byId = createSlice({
       delete state[action.meta.arg]
     })
     builder.addCase(enrollLeagueByIdAndUsername.fulfilled, (state, action) => {
-      state[action.meta.arg.id] = Request.makeInitial()
+      state[action.meta.arg.id] = Request.makeSuccess(action.payload)
     })
     builder.addCase(leaveLeagueByIdAndUsername.fulfilled, (state, action) => {
-      state[action.meta.arg.id] = Request.makeInitial()
+      state[action.meta.arg.id] = Request.makeSuccess(action.payload)
     })
     builder.addCase(startLeagueById.fulfilled, (state, action) => {
       state[action.meta.arg] = Request.makeInitial()
