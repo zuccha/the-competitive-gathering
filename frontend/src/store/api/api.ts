@@ -2,7 +2,8 @@ import axios from 'axios'
 import LocalStorage from '../../types/LocalStorage'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  // baseURL: 'http://localhost:8000/api',
+  baseURL: `${process.env.REACT_APP_HOST}/api`,
 })
 
 api.interceptors.request.use(config => {
