@@ -11,6 +11,7 @@ import deleteLeagueById from './thunks/deleteLeagueById'
 import enrollLeagueByIdAndUsername from './thunks/enrollLeagueByIdAndUsername'
 import fetchLeagueById from './thunks/fetchLeagueById'
 import fetchLeagues from './thunks/fetchLeagues'
+import finishLeagueById from './thunks/finishLeagueById'
 import leaveLeagueByIdAndUsername from './thunks/leaveLeagueByIdAndUsername'
 import startLeagueById from './thunks/startLeagueById'
 
@@ -29,6 +30,7 @@ export {
   leaveLeagueByIdAndUsername,
   deleteLeagueById,
   startLeagueById,
+  finishLeagueById,
   cancelLeagueById,
   useLeagueById,
   useLeagues,

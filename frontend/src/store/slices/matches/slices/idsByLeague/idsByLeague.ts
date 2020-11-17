@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import Request, { IRequest } from '../../../../../types/Request'
 import { startLeagueById } from '../../../leagues'
 import fetchMatchesByLeague from '../../thunks/fetchMatchesByLeague'
-import registerMatchResult from '../../thunks/registerMatchResult'
 
 const idsByLeague = createSlice({
   name: 'matches/idsByLeague',

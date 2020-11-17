@@ -6,6 +6,7 @@ import deleteLeagueById from '../../thunks/deleteLeagueById'
 import enrollLeagueByIdAndUsername from '../../thunks/enrollLeagueByIdAndUsername'
 import fetchLeagueById from '../../thunks/fetchLeagueById'
 import fetchLeagues from '../../thunks/fetchLeagues'
+import finishLeagueById from '../../thunks/finishLeagueById'
 import leaveLeagueByIdAndUsername from '../../thunks/leaveLeagueByIdAndUsername'
 import startLeagueById from '../../thunks/startLeagueById'
 
@@ -38,6 +39,9 @@ const byId = createSlice({
       state[action.meta.arg.id] = Request.makeSuccess(action.payload)
     })
     builder.addCase(startLeagueById.fulfilled, (state, action) => {
+      state[action.meta.arg] = Request.makeSuccess(action.payload)
+    })
+    builder.addCase(finishLeagueById.fulfilled, (state, action) => {
       state[action.meta.arg] = Request.makeSuccess(action.payload)
     })
     builder.addCase(cancelLeagueById.fulfilled, (state, action) => {
