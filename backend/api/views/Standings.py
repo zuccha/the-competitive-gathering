@@ -38,11 +38,12 @@ class Standings(APIView):
       standings.append(standing)
 
     standings.sort(reverse=True)
-    standings[0].rank = 1
-    for i in range(1, len(standings)):
-      if standings[i - 1] == standings[i]:
-        standings[i].rank = standings[i - 1].rank
-      else:
-        standings[i].rank = i + 1
+    if len(standings) > 0:
+      standings[0].rank = 1
+      for i in range(1, len(standings)):
+        if standings[i - 1] == standings[i]:
+          standings[i].rank = standings[i - 1].rank
+        else:
+          standings[i].rank = i + 1
 
     return JsonResponse(list(map(Standing.to_json, standings)), safe=False)
