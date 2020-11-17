@@ -127,7 +127,6 @@ const MatchesTableEditable: React.FC<IMatchesTableEditableProps> = ({
       <Table
         columns={columns}
         rows={rows}
-        defaultSortingOrder='descending'
         customContext={customContext}
         getRowId={data => data.id}
       />
