@@ -14,7 +14,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-FRONTEND_DIR = BASE_DIR.joinpath('frontend').resolve(strict=True)
 
 STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 STATICFILES_STORAGE = 'whitenoise.django.CompressedManifestStaticFilesStorage'
@@ -67,7 +66,7 @@ TEMPLATES = [
   {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [
-      FRONTEND_DIR.joinpath('build').resolve(strict=True)
+      BASE_DIR.joinpath('build').resolve(strict=True)
     ],
     'APP_DIRS': True,
     'OPTIONS': {
@@ -82,7 +81,7 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-  FRONTEND_DIR.joinpath('build/static').resolve(strict=True),
+  BASE_DIR.joinpath('build/static').resolve(strict=True),
 ]
 
 WSGI_APPLICATION = 'trg.wsgi.application'

@@ -37,8 +37,8 @@
     "lint-staged": "^10.5.1"
   },
   "scripts": {
-    "lint:check": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:check": "eslint src",
+    "lint:fix": "eslint src --fix",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -68,7 +68,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "eslint ."
+      "eslint src"
     ]
   }
 }
