@@ -16,6 +16,9 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 FRONTEND_DIR = BASE_DIR.joinpath('frontend').resolve(strict=True)
 
+STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
+STATICFILES_STORAGE = 'whitenoise.django.CompressedManifestStaticFilesStorage'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -25,7 +28,11 @@ SECRET_KEY = 't884)nw0a@pui&z@(n%dl^vmx!v5$cx*50cbdz^g+pnjiwlahx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'the-remote-gathering.herokuapp.com',
+  '127.0.0.1',
+  'localhost',
+]
 
 
 # Application definition
@@ -43,6 +50,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+  'django.middleware.security.SecurityMiddleware',
+  'whitenoise.middleware.WhiteNoiseMiddleware',
   'corsheaders.middleware.CorsMiddleware',
   'django.middleware.security.SecurityMiddleware',
   'django.contrib.sessions.middleware.SessionMiddleware',
