@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-
+FRONTEND_DIR = BASE_DIR.joinpath('../frontend').resolve(strict=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -57,7 +57,9 @@ ROOT_URLCONF = 'trg.urls'
 TEMPLATES = [
   {
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    'DIRS': [],
+    'DIRS': [
+      FRONTEND_DIR.joinpath('build').resolve(strict=True)
+    ],
     'APP_DIRS': True,
     'OPTIONS': {
       'context_processors': [
@@ -68,6 +70,10 @@ TEMPLATES = [
       ],
     },
   },
+]
+
+STATICFILES_DIRS = [
+  FRONTEND_DIR.joinpath('build/static').resolve(strict=True),
 ]
 
 WSGI_APPLICATION = 'trg.wsgi.application'
