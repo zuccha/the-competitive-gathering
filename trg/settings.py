@@ -25,7 +25,7 @@ STATICFILES_STORAGE = 'whitenoise.django.CompressedManifestStaticFilesStorage'
 SECRET_KEY = 't884)nw0a@pui&z@(n%dl^vmx!v5$cx*50cbdz^g+pnjiwlahx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
   'the-remote-gathering.herokuapp.com',
