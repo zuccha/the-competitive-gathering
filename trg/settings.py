@@ -28,7 +28,7 @@ SECRET_KEY = 't884)nw0a@pui&z@(n%dl^vmx!v5$cx*50cbdz^g+pnjiwlahx'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-  'the-remote-gathering.herokuapp.com',
+  'the-competitive-gathering.herokuapp.com',
   '127.0.0.1',
   'localhost',
 ]
