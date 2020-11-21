@@ -1,4 +1,4 @@
-import { ICredentials } from '../Credentials'
+import Credentials, { ICredentials } from '../Credentials'
 import Theme, { ITheme } from '../Theme'
 
 const readSafe = <T>(key: string, validate: (item: unknown) => boolean ): T | undefined => {
@@ -19,10 +19,7 @@ const readSafe = <T>(key: string, validate: (item: unknown) => boolean ): T | un
 
 const LocalStorage = {
   readCredentials: (): ICredentials | undefined => {
-    return readSafe('credentials', maybeCredentials => {
-      const credentials = maybeCredentials as ICredentials
-      return typeof credentials.username === 'string' && typeof credentials.token === 'string'
-    })
+    return readSafe('credentials', Credentials.validate)
   },
   saveCredentials: (credentials: ICredentials | undefined): void => {
     localStorage.setItem('credentials', JSON.stringify(credentials))
