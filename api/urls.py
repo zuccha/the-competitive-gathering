@@ -9,14 +9,14 @@ from .views.Matches import Matches
 from .views.Standings import Standings
 
 urlpatterns = [
-  path('login', authtoken_views.obtain_auth_token),
+  path('login/', authtoken_views.obtain_auth_token),
 
-  re_path(r'^leagues/(?P<id>\d+)/players/(?P<username>\w+)$', LeaguePlayer.as_view()),
-  re_path(r'^leagues/(?P<id>\d+)/status$', LeagueStatus.as_view()),
-  re_path(r'^leagues/(?P<id>\d+)$', League.as_view()),
+  re_path(r'^leagues/(?P<id>\d+)/players/(?P<username>\w+)/$', LeaguePlayer.as_view()),
+  re_path(r'^leagues/(?P<id>\d+)/status/$', LeagueStatus.as_view()),
+  re_path(r'^leagues/(?P<id>\d+)/$', League.as_view()),
   path('leagues/', Leagues.as_view()),
 
-  re_path(r'^matches/(?P<id>\d+)$', Match.as_view()),
+  re_path(r'^matches/(?P<id>\d+)/$', Match.as_view()),
   path('matches/', Matches.as_view()),
 
   path('standings/', Standings.as_view()),
