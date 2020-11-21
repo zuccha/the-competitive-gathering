@@ -1,5 +1,5 @@
 import { ICredentials } from '../Credentials'
-import { ITheme } from '../Theme'
+import Theme, { ITheme } from '../Theme'
 
 const readSafe = <T>(key: string, validate: (item: unknown) => boolean ): T | undefined => {
   const itemStr = localStorage.getItem(key)
@@ -28,10 +28,7 @@ const LocalStorage = {
     localStorage.setItem('credentials', JSON.stringify(credentials))
   },
   readTheme: (): ITheme | undefined => {
-    return readSafe('theme', maybeTheme => {
-      const theme = maybeTheme as ITheme
-      return typeof theme.primary === 'string'
-    })
+    return readSafe('theme', Theme.validate)
   },
   saveTheme: (theme: ITheme | undefined): void => {
     localStorage.setItem('theme', JSON.stringify(theme))

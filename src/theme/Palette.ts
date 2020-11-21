@@ -1,0 +1,61 @@
+import { ITheme } from '../types/Theme'
+
+const Palette: Record<string, ITheme> = {
+  White: {
+    primary100: '#FFFCD5',
+    primary200: '#FFFAB5',
+    primary300: '#FFF893',
+    primary400: '#FFF672',
+    primary500: '#FFF350',
+    primary600: '#FFF12F',
+    primary700: '#FFEF0D',
+    primary800: '#EBDB00',
+    primary900: '#C9BC00',
+  },
+  Blue: {
+    primary100: '#AAE1FA',
+    primary200: '#8CD6F8',
+    primary300: '#70CCF7',
+    primary400: '#54C2F5',
+    primary500: '#37B8F3',
+    primary600: '#1BAEF2',
+    primary700: '#0D9EE2',
+    primary800: '#0C8BC6',
+    primary900: '#0A77A9',
+  },
+  Black: {
+    primary100: '#CCC2C0',
+    primary200: '#C0B4B1',
+    primary300: '#B4A4A1',
+    primary400: '#A79591',
+    primary500: '#9A8682',
+    primary600: '#8E7772',
+    primary700: '#7E6965',
+    primary800: '#6E5C59',
+    primary900: '#5F4F4C',
+  },
+  Red: {
+    primary100: '#FAAA8F',
+    primary200: '#F89574',
+    primary300: '#F78159',
+    primary400: '#F66C3F',
+    primary500: '#F55824',
+    primary600: '#F1450B',
+    primary700: '#F1450B',
+    primary800: '#D63D0A',
+    primary900: '#BC3609',
+  },
+  Green: {
+    primary100: '#9BD3AE',
+    primary200: '#8ACB9F',
+    primary300: '#77C391',
+    primary400: '#65BB82',
+    primary500: '#53B373',
+    primary600: '#48A467',
+    primary700: '#40925B',
+    primary800: '#388050',
+    primary900: '#306D44',
+  },
+}
+
+export default Palette

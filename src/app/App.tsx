@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { BrowserRouter, Switch } from 'react-router-dom'
+import ThemeManager from '../theme/ThemeManager'
 import styles from './App.module.css'
 import Navbar from './components/Navbar'
 import RoutePrivate from './components/RoutePrivate'
@@ -9,7 +10,10 @@ import Login from './views/Login'
 import Overview from './views/Overview'
 
 const App: React.FC = () => {
-  console.log('REACT_APP_HOST:', process.env.REACT_APP_HOST)
+  useLayoutEffect(() => {
+    ThemeManager.load()
+  }, [])
+
   return (
     <div className={styles['app']}>
       <BrowserRouter>
