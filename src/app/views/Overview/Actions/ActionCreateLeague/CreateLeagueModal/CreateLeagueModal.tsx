@@ -110,6 +110,7 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
               label='Name'
               placeholder='Epic league'
               leaveSpaceForError
+              maxLength={32}
             />
             <FormNumber
               className={styles['create-league-modal-input']}

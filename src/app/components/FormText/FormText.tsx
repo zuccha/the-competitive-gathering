@@ -10,6 +10,7 @@ interface IFormTextProps {
   label?: string
   placeholder?: string
   leaveSpaceForError?: boolean
+  maxLength?: number
 }
 
 const FormText: React.FC<IFormTextProps> = ({
@@ -18,6 +19,7 @@ const FormText: React.FC<IFormTextProps> = ({
   label,
   placeholder,
   leaveSpaceForError,
+  maxLength,
 }) => {
   return (
     <FormField
@@ -26,7 +28,7 @@ const FormText: React.FC<IFormTextProps> = ({
       label={label}
       leaveSpaceForError={leaveSpaceForError}
     >
-      <Field name={name} placeholder={placeholder} />
+      <Field name={name} placeholder={placeholder} maxLength={maxLength} />
     </FormField>
   )
 }
