@@ -10,7 +10,7 @@ const deleteLeagueById = createAsyncThunk<
 >(
   'leagues/deleteLeagueById',
   withErrorHttp(async id => {
-    await api.delete(`/leagues/${id}`)
+    await api.delete(`/leagues/${id}/`)
   }),
 )
 

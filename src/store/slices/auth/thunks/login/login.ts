@@ -11,7 +11,7 @@ const login = createAsyncThunk<
 >(
   'auth/login',
   withErrorHttp(async ({ username, password }) => {
-    const { data } = await api.post('/login', {
+    const { data } = await api.post('/login/', {
       username,
       password,
     })

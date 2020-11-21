@@ -12,7 +12,7 @@ const startLeagueById = createAsyncThunk<
 >(
   'leagues/startLeagueById',
   withErrorHttp(async id => {
-    const { data } = await api.put(`/leagues/${id}/status`, {
+    const { data } = await api.put(`/leagues/${id}/status/`, {
       status: 'ONGOING',
     })
     return ApiLeague.toLeague(data)
