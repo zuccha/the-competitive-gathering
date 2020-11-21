@@ -25,6 +25,12 @@ const columns: IColumn<ILeague>[] = [
     },
   },
   {
+    id: 'name',
+    label: 'Name',
+    renderData: data => <CellText value={data.name} width='200px' />,
+    isSortable: true,
+  },
+  {
     id: 'format',
     label: 'Format',
     renderData: data => <CellText value={LeagueFormat.toString(data.format)} className='capitalize' />,
@@ -34,20 +40,6 @@ const columns: IColumn<ILeague>[] = [
     id: 'status',
     label: 'Status',
     renderData: data => <CellText value={LeagueStatus.toString(data.status)} className='capitalize' />,
-    isSortable: true,
-  },
-  {
-    id: 'dateStart',
-    label: 'Start',
-    tooltip: 'Date marking the start of the league; the league starts when the minimum number of players is reached and its creator approves it',
-    renderData: data => <CellText value={data.dateStart} />,
-    isSortable: true,
-  },
-  {
-    id: 'dateEnd',
-    label: 'End',
-    tooltip: 'Date marking the end of the league; the league ends once all matches have been played',
-    renderData: data => <CellText value={data.dateEnd} />,
     isSortable: true,
   },
   {

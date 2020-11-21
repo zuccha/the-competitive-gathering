@@ -8,6 +8,7 @@ import when from '../../../../../../utils/when'
 import Button from '../../../../../components/Button'
 import FormNumber from '../../../../../components/FormNumber'
 import FormSelect from '../../../../../components/FormSelect'
+import FormText from '../../../../../components/FormText'
 import Modal from '../../../../../components/Modal'
 import styles from './CreateLeagueModal.module.css'
 
@@ -32,6 +33,7 @@ const areValuesValid = function(values?: { playersMin?: number, playersMax?: num
 }
 
 const createLeagueValidationSchema = Yup.object().shape({
+  name: Yup.string().required('Required').max(32, 'The name should be at most 32 characters long'),
   format: Yup.string().required('Required'),
   playersMin: Yup.number()
     .min(2)
@@ -61,6 +63,7 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
   const handleSubmit = useCallback((values, actions) => {
     actions.setSubmitting(true)
     onCreateLeague({
+      name: values.name,
       creator: username,
       players: [username],
       format: values.format,
@@ -89,6 +92,7 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
     <Modal onClickOutside={onCancel}>
       <Formik
         initialValues={{
+          name: '',
           format: formatOptions[0].value,
           playersMin: 2,
           playersMax: '',
@@ -100,6 +104,13 @@ const CreateLeagueModal: React.FC<ICreateLeagueModalProps> = ({
         {({ isSubmitting, isValid }) => (
           <Form className={styles['create-league-modal']}>
             <h3>Create new league</h3>
+            <FormText
+              className={styles['create-league-modal-input']}
+              name='name'
+              label='Name'
+              placeholder='Epic league'
+              leaveSpaceForError
+            />
             <FormNumber
               className={styles['create-league-modal-input']}
               name='rounds'

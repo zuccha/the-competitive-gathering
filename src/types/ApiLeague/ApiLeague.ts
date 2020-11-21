@@ -4,6 +4,7 @@ import { ILeagueStatus } from '../LeagueStatus'
 
 export type IApiLeague = {
   id: number
+  name: string
   creator: string | null
   players: string[]
   status: ILeagueStatus
@@ -18,6 +19,7 @@ export type IApiLeague = {
 const ApiLeague = {
   toLeague: (apiLeague: IApiLeague): ILeague => ({
     id: `${apiLeague.id}`,
+    name: apiLeague.name,
     creator: apiLeague.creator || undefined,
     players: apiLeague.players,
     status: apiLeague.status,

@@ -3,6 +3,7 @@ import { ILeagueStatus } from '../LeagueStatus'
 
 export type ILeague = {
   id: string
+  name: string
   creator: string | undefined
   players: string[]
   status: ILeagueStatus
