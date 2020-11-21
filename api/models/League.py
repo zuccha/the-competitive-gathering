@@ -24,6 +24,7 @@ class League(models.Model):
     DONE = 'DONE'
 
   id = models.AutoField(primary_key=True)
+  name = models.CharField(max_length=32, default='')
   creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="creator")
   players = models.ManyToManyField(User, blank=True, related_name="players")
   status = models.CharField(max_length=16, choices=Status.choices, default=Status.PENDING)
@@ -54,6 +55,7 @@ class League(models.Model):
   def to_json(self):
     return {
       "id": self.id,
+      "name": self.name,
       "creator": self.creator.username,
       "players": list(map(lambda player: player.username, self.players.all())),
       "status": self.status,

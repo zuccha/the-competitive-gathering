@@ -7,6 +7,8 @@ from ..models.League import League as LeagueModel
 def validate_league_input(league_input):
   if league_input == None:
     return 'body is missing'
+  if league_input.get('name') == None:
+    return 'required field `name` is missing'
   if league_input.get('creator') == None:
     return 'required field `creator` is missing'
   if league_input.get('players') == None:
@@ -45,6 +47,7 @@ class Leagues(APIView):
     players = UserModel.objects.filter(username__in=league_input.get('players')).all()
 
     league = LeagueModel()
+    league.name=league_input.get('name')
     league.creator = creator
     league.status=LeagueModel.Status.PENDING
     league.format=league_input.get('format')
