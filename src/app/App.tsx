@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
 import { BrowserRouter, Switch } from 'react-router-dom'
-import ThemeManager from '../theme/ThemeManager'
+import ThemeManager from '../types/ThemeManager'
 import styles from './App.module.css'
 import Navbar from './components/Navbar'
 import RoutePrivate from './components/RoutePrivate'

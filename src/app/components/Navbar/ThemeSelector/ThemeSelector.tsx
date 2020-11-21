@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import React, { useCallback, useState } from 'react'
-import Palette from '../../../../theme/Palette'
-import ThemeManager from '../../../../theme/ThemeManager'
+import Palette from '../../../../types/Palette'
+import ThemeManager from '../../../../types/ThemeManager'
 import Theme, { ITheme } from '../../../../types/Theme'
 import styles from './ThemeSelector.module.css'
 

@@ -1,6 +1,6 @@
-import LocalStorage from '../types/LocalStorage'
-import { ITheme } from '../types/Theme'
-import Palette from './Palette'
+import LocalStorage from '../LocalStorage'
+import { ITheme } from '../Theme'
+import Palette from '../Palette'
 
 const ThemeManager = {
   getCurrent: (): ITheme => {

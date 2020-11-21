@@ -1,4 +1,4 @@
-import { ITheme } from '../types/Theme'
+import { ITheme } from '../Theme'
 
 const Palette: Record<string, ITheme> = {
   White: {
