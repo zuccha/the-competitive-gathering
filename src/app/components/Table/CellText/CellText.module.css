@@ -1,3 +1,6 @@
 .cell-text {
-  text-align: left
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
