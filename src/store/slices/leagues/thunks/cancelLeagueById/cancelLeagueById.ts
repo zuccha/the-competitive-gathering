@@ -10,7 +10,7 @@ const cancelLeagueById = createAsyncThunk<
 >(
   'leagues/cancelLeagueById',
   withErrorHttp(async id => {
-    await api.put(`/leagues/${id}/status/`, {
+    await api.put(`leagues/${id}/status/`, {
       status: 'CANCELED',
     })
   }),

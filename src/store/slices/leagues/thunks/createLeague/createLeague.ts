@@ -13,7 +13,7 @@ const createLeague = createAsyncThunk<
 >(
   'leagues/createLeague',
   withErrorHttp(async apiLeagueInput => {
-    const { data } = await api.post('/leagues/', apiLeagueInput)
+    const { data } = await api.post('leagues/', apiLeagueInput)
     return ApiLeague.toLeague(data)
   }),
 )

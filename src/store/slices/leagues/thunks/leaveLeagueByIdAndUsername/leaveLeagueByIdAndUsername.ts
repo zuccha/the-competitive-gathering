@@ -12,7 +12,7 @@ const leaveLeagueByIdAndUsername = createAsyncThunk<
 >(
   'leagues/leaveLeagueByIdAndUsername',
   withErrorHttp(async ({ id, username }) => {
-    const { data } = await api.delete(`/leagues/${id}/players/${username}/`)
+    const { data } = await api.delete(`leagues/${id}/players/${username}/`)
     return ApiLeague.toLeague(data)
   }),
 )

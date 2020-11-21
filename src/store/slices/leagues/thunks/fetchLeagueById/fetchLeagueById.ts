@@ -13,7 +13,7 @@ const fetchLeagueById = createAsyncThunk<
 >(
   'leagues/fetchLeagueById',
   withErrorHttp(async id => {
-    const { data } = await api.get(`/leagues/${id}/`)
+    const { data } = await api.get(`leagues/${id}/`)
     return ApiLeague.toLeague(data)
   }),
   {

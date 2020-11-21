@@ -3,12 +3,12 @@ import LocalStorage from '../../types/LocalStorage'
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_HOST
-    ? `${process.env.REACT_APP_HOST}/api`
-    : 'api',
+    ? `${process.env.REACT_APP_HOST}api/`
+    : 'api/',
 })
 
 api.interceptors.request.use(config => {
-  if (config.url === '/login') {
+  if (config.url === 'login/') {
     return config
   }
 

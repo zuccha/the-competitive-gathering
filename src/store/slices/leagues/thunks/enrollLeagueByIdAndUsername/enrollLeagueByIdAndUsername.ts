@@ -12,7 +12,7 @@ const enrollLeagueByIdAndUsername = createAsyncThunk<
 >(
   'leagues/enrollLeagueByIdAndUsername',
   withErrorHttp(async ({ id, username }) => {
-    const { data } = await api.put(`/leagues/${id}/players/${username}/`)
+    const { data } = await api.put(`leagues/${id}/players/${username}/`)
     return ApiLeague.toLeague(data)
   }),
 )

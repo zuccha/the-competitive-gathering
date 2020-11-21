@@ -12,7 +12,7 @@ const registerMatchResult = createAsyncThunk<
 >(
   'matches/registerMatchResult',
   withErrorHttp(async match => {
-    const { data } = await api.put(`/matches/${match.id}/`, {
+    const { data } = await api.put(`matches/${match.id}/`, {
       status: 'DONE',
       games_won_by_player1: match.gamesWonByPlayer1,
       games_won_by_player2: match.gamesWonByPlayer2,

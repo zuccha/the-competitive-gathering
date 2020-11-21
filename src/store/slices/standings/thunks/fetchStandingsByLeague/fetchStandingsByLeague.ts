@@ -13,7 +13,7 @@ const fetchStandingsByLeague = createAsyncThunk<
 >(
   'standings/fetchStandingsByLeague',
   withErrorHttp(async leagueId => {
-    const { data } = await api.get('/standings/', {
+    const { data } = await api.get('standings/', {
       params: { league_id: leagueId },
     })
     return data.map(ApiStanding.toStanding)
