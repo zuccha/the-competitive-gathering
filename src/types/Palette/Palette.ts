@@ -3,14 +3,14 @@ import { ITheme } from '../Theme'
 const Palette: Record<string, ITheme> = {
   White: {
     primary100: '#FFFCD5',
-    primary200: '#FFFAB5',
-    primary300: '#FFF893',
-    primary400: '#FFF672',
-    primary500: '#FFF350',
-    primary600: '#FFF12F',
-    primary700: '#FFEF0D',
-    primary800: '#EBDB00',
-    primary900: '#C9BC00',
+    primary200: '#FBEBBA',
+    primary300: '#F9E29E',
+    primary400: '#F8DA80',
+    primary500: '#F6D163',
+    primary600: '#F4C845',
+    primary700: '#F2C027',
+    primary800: '#EDB50E',
+    primary900: '#CF9E0C',
   },
   Blue: {
     primary100: '#AAE1FA',
