@@ -7,6 +7,7 @@ from .views.Leagues import Leagues
 from .views.Match import Match
 from .views.Matches import Matches
 from .views.Standings import Standings
+from .views.UserPassword import UserPassword
 
 urlpatterns = [
   path('login/', authtoken_views.obtain_auth_token),
@@ -20,4 +21,6 @@ urlpatterns = [
   path('matches/', Matches.as_view()),
 
   path('standings/', Standings.as_view()),
+
+  re_path(r'^user/(?P<username>\w+)/password/$', UserPassword.as_view()),
 ]
